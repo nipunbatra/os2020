@@ -9,12 +9,10 @@ description: "Education is what remains after one has forgotten what one has lea
 |  Sno |  | Topic | Lab | Assignment |
 | --- | --- | --- | --- | --- |
 |   |  |  |  |  |
-|  1 | 6 Aug | [Logistics & Introduction to OS](../lectures/os-19-1.pdf "Logistics & Introduction to OS") |  |  |
-|   | 7 Aug |  |  |  |
-|  2 | 8 Aug | [Processes](../lectures/os19-2-processes.pdf "Processes") |  |  |
-|  3 | 9 Aug | [Process API](../lectures/os19-3-process-api.pdf "Process API") |  |  |
-|   |  |  |  |  |
-|   | 12 Aug |  | [Process commands (top, ps)](https://nipunbatra.github.io/teaching/os-fall-18/labs/lab-1.pdf "Process commands (top, ps)") |  |
+|  1 | 4 Aug | [Logistics & Introduction to OS](../lectures/os-19-1.pdf "Logistics & Introduction to OS") |  |  |
+|  2 | 5 Aug | [Processes](../lectures/os19-2-processes.pdf "Processes") |  |  |
+|   | 6 Aug |  | [Process commands (top, ps)](https://nipunbatra.github.io/teaching/os-fall-18/labs/lab-1.pdf "Process commands (top, ps)") |  |
+|  3 | 7 Aug | [Process API](../lectures/os19-3-process-api.pdf "Process API"), [CPU Scheduling 1](../lectures/os19-4-cpu-scheduling.pdf "CPU Scheduling 1") |  |  |
 |  4 | 13 Aug | [CPU Scheduling 1](../lectures/os19-4-cpu-scheduling.pdf "CPU Scheduling 1") |  | Project topics discussion |
 |  5 | 14 Aug | CPU Scheduling (continued - slides above) |  |  |
 |   | 15 Aug | *Holiday* |  |  |
