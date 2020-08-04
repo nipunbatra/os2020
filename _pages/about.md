@@ -9,6 +9,7 @@ description: CS 301
 
 ### Operating Systems Fall 2020 (CS 301)
 
+* [FAQ: course policy and others](https://docs.google.com/document/d/1AeyF5Q01pR3o38UsgmknJgdrv-ZB6W9fJQ8hZrFdtfk/edit?usp=sharing)
 * Google Classroom link: g27z27x
 * Teaching mode: The class will be run in flipped format
 *   Instructor: Nipun Batra (nipun.batra@iitgn.ac.in)
@@ -20,12 +21,3 @@ description: CS 301
 *   [Ubuntu VirtualBox VM image](https://drive.google.com/file/d/1jZVQRuomuYsuK5dkTyuVMxV4oNLFX8Hs/view)
 *   [Course Project Ideas] - TBA
 *   [Code used in classes](https://github.com/nipunbatra/os2020/tree/master/lectures/code)
-*   Grading policy
-    *   Score negotiation: Only if a question is unchecked, or totaling mistake
-    *   4 Quizzes (10% each): 40%
-    *   Mid semester: None
-    *   End semester: 10%
-    *   2 Homework programming assignment (Individual): 8%
-    *   2 Lab exam (10% each): 20%
-    *   Project (in groups of 4): 20%
-    *   OS [zine](https://jvns.ca/zines/): 2%
