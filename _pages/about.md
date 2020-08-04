@@ -1,23 +1,25 @@
 ---
 layout: about
 permalink: /
-title: Operating Systems 2019
+title: Operating Systems 2020
 description: CS 301
 ---
 
 
 
-### Operating Systems Fall 2019 (CS 301)
+### Operating Systems Fall 2020 (CS 301)
 
+* Google Classroom link: g27z27x
+* Teaching mode: The class will be run in flipped format
 *   Instructor: Nipun Batra (nipun.batra@iitgn.ac.in)
-*   Teaching Assistants: Rishiraj Adhikary, Varun Gohil. Shreyas Singh
+*   Teaching Assistants: Tom Glint, Rishiraj Adhikary, Vraj Patel, Rohan Patil
 *   Course Timings
-    *   Lectures: Tuesday (11 AM - 12 Noon), Thursday (11 AM - 12 Noon), Friday (11 AM - 12 Noon) \[AB7/102\]
-    *   Labs: Monday (10:00 AM - 12:00 Noon) \[AB7/109\]
+    *   Lectures: Tuesday (11 AM - 12 Noon), Wednesday (11 AM - 12 Noon), Friday (11 AM - 12 Noon) 
+    *   Labs: Thursday (3:00 PM - 5:00 PM) 
 *   Main textbook: [OS: Three Easy Steps](http://pages.cs.wisc.edu/~remzi/OSTEP/)
 *   [Ubuntu VirtualBox VM image](https://drive.google.com/file/d/1jZVQRuomuYsuK5dkTyuVMxV4oNLFX8Hs/view)
-*   [Course Project Ideas](https://docs.google.com/spreadsheets/d/1eVVmBrCTXHa6XhfewG2S9_if11Ija0s_cNMBp5NMbww/edit?usp=sharing)
-*   [Code used in classes](https://github.com/nipunbatra/nipunbatra.github.io/tree/master/teaching/os-fall-19/code)
+*   [Course Project Ideas] - TBA
+*   [Code used in classes](https://github.com/nipunbatra/os2020/tree/master/lectures/code)
 *   Grading policy
     *   Score negotiation: Only if a question is unchecked, or totaling mistake
     *   4 Quizzes (10% each): 40%
