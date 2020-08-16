@@ -13,16 +13,18 @@ description: "Education is what remains after one has forgotten what one has lea
 |  2 | 5 Aug | [Processes](../lectures/os19-2-processes.pdf "Processes"), [Video](https://www.youtube.com/watch?v=UbDB4vPs5OI&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=2) |  |  |
 |   | 6 Aug |  | [Process commands (top, ps)](https://nipunbatra.github.io/os2020/labs/lab-1.pdf "Process commands (top, ps)") |  |
 |  3 | 7 Aug | [Process API](../lectures/os19-3-process-api.pdf "Process API")([Video](https://www.youtube.com/watch?v=rMFV7vwqbpc&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=4)), [CPU Scheduling 1](../lectures/os19-4-cpu-scheduling.pdf "CPU Scheduling 1")([Video](https://www.youtube.com/watch?v=ym9vtzwg7o8&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=6)) |  |  |
+| | 11 Aug | [Zoom Meeting on CPU Scheduling](https://drive.google.com/file/d/12WUGFQq8_kWJlIEzBA-Qex9Y1FpiQci2/view?usp=sharing) | | |
+| | 12 Aug | [Guest Lecture on Assembly Language](../lectures/os19-9-assembly.pdf "Assembly Language"), [Video](https://drive.google.com/file/d/156JAuU_vArDqI0kSQE93X_OCS4wKqC-z/view?usp=sharing) | | |
 |  4 | 13 Aug | [CPU Scheduling 1](../lectures/os19-4-cpu-scheduling.pdf "CPU Scheduling 1") |  | Project topics discussion |
-|  5 | 14 Aug | CPU Scheduling (continued - slides above) |  |  |
+|  5 | 14 Aug | CPU Scheduling (continued - slides above) [Zoom Meeting](https://drive.google.com/file/d/1LaHYsAajJlkcEv9O-jhcMIU7hqAhxIMV/view?usp=sharing) |  |  |
 |   | 15 Aug | *Holiday* |  |  |
-|  6 | 16 Aug | [CPU scheduling 2](../lectures/os19-6-cpu-scheduling.pdfpdf "CPU scheduling 2") |  |  |
+|  6 | 16 Aug | [CPU scheduling 2](../lectures/os19-6-cpu-scheduling.pdf "CPU scheduling 2"), [Video](https://www.youtube.com/watch?v=BTNZI7khUI8) [File System], [Zoom Meeting 1](https://drive.google.com/file/d/18EIUvNHDe-DPIfIhDXQH0fZKsIZ6IQ_x/view?usp=sharing), [Zoom Meeting 2](https://drive.google.com/file/d/1RgptreATk07cECDhGU5hYW5E802cU1Vw/view?usp=sharing)|  |  |
 |   |  |  |  |  |
-|  7 | 17 Aug | [MLFQ + LDE](../lectures/os19-7-cpu-scheduling-execution.pdf "MLFQ + LDE") |  |  |
-|  8 | 17 Aug | [Context Switching](../lectures/os19-8-cpu-execution-memory.pdf "Context Switching") |  |  |
+|  7 | 17 Aug | [MLFQ + LDE](../lectures/os19-7-cpu-scheduling-execution.pdf "MLFQ + LDE"), [Video](https://www.youtube.com/watch?v=jEiCTge0GbQ&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=9) |  |  |
+|  8 | 17 Aug | [Context Switching](../lectures/os19-8-cpu-execution-memory.pdf "Context Switching"), [Video](https://www.youtube.com/watch?v=fExbQPJJrMg&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=10) |  |  |
 |   |  |  |  |  |
 |   | 19 Aug |  | Process API questions from book |  |
-|  9 | 20 Aug | [Assembly Language](../lectures/os19-9-assembly.pdf "Assembly Language") |  |  |
+|  9 | 20 Aug |  |  |  |
 |  10 | 21 Aug | [Memory Management - I](../lectures/os19-memory-management.pdf "Memory Management - I") |  |  |
 |   | 21 Aug |  |  |  |
 |  11 | 23 Aug | [Quiz 1](https://docs.google.com/document/d/1LFQU-Gy4vzNXRDF6hlY8QAKArlLNFBO9wsq8UcWQKQI/edit?usp=sharing "Quiz 1") |  |  |
