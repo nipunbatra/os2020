@@ -6,7 +6,7 @@ description: "Education is what remains after one has forgotten what one has lea
 ---
 
 
-|  Sno |  | Topic | Lab | Assignment |
+|  Sno | Date | Topic | Lab | Assignment |
 | --- | --- | --- | --- | --- |
 |   |  |  |  |  |
 |  1 | 4 Aug | [Logistics & Introduction to OS](../lectures/os-19-1.pdf "Logistics & Introduction to OS"), [Video](https://www.youtube.com/watch?v=whp34MZbG6o&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=2&t=0s) |  |  |
@@ -17,76 +17,7 @@ description: "Education is what remains after one has forgotten what one has lea
 | | 12 Aug | [Guest Lecture on Assembly Language](../lectures/os19-9-assembly.pdf "Assembly Language"), [Video](https://drive.google.com/file/d/156JAuU_vArDqI0kSQE93X_OCS4wKqC-z/view?usp=sharing) | | |
 |  4 | 13 Aug | [CPU Scheduling 1](../lectures/os19-4-cpu-scheduling.pdf "CPU Scheduling 1") |  | Project topics discussion |
 |  5 | 14 Aug | CPU Scheduling (continued - slides above) [CPU scheduling 2](../lectures/os19-6-cpu-scheduling.pdf "CPU scheduling 2"), [Video](https://www.youtube.com/watch?v=BTNZI7khUI8) [Zoom Meeting](https://drive.google.com/file/d/1LaHYsAajJlkcEv9O-jhcMIU7hqAhxIMV/view?usp=sharing) |  |  |
-|   | 15 Aug | File System [Slide1](), [Slides2]() [Zoom Meeting 1](https://drive.google.com/file/d/18EIUvNHDe-DPIfIhDXQH0fZKsIZ6IQ_x/view?usp=sharing), [Zoom Meeting 2](https://drive.google.com/file/d/1RgptreATk07cECDhGU5hYW5E802cU1Vw/view?usp=sharing) |  |  |
-|  6 | 16 Aug |  [File System], [Zoom Meeting 1](https://drive.google.com/file/d/18EIUvNHDe-DPIfIhDXQH0fZKsIZ6IQ_x/view?usp=sharing), [Zoom Meeting 2](https://drive.google.com/file/d/1RgptreATk07cECDhGU5hYW5E802cU1Vw/view?usp=sharing)|  |  |
-|   |  |  |  |  |
-|  7 | 17 Aug | [MLFQ + LDE](../lectures/os19-7-cpu-scheduling-execution.pdf "MLFQ + LDE"), [Video](https://www.youtube.com/watch?v=jEiCTge0GbQ&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=9) |  |  |
-|  8 | 17 Aug | [Context Switching](../lectures/os19-8-cpu-execution-memory.pdf "Context Switching"), [Video](https://www.youtube.com/watch?v=fExbQPJJrMg&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=10) |  |  |
-|   |  |  |  |  |
-|   | 19 Aug |  | Process API questions from book |  |
-|  9 | 20 Aug |  |  |  |
-|  10 | 21 Aug | [Memory Management - I](../lectures/os19-memory-management.pdf "Memory Management - I") |  |  |
-|   | 21 Aug |  |  |  |
-|  11 | 23 Aug | [Quiz 1](https://docs.google.com/document/d/1LFQU-Gy4vzNXRDF6hlY8QAKArlLNFBO9wsq8UcWQKQI/edit?usp=sharing "Quiz 1") |  |  |
-|   |  |  |  |  |
-|   | 26 Aug |  |  | Submit project timeline |
-|  12 | 27 Aug | [Address Translation, Segmentation](../lectures/os19-memory-management-segmentation.pdf "Address Translation, Segmentation") |  | Assignment #1 deadline |
-|  13 | 28 Aug | [Segmentation, Paging](../lectures/os19-memory-management-segmentation-2.pdf "Segmentation, Paging") |  |  |
-|  14 | 30 Aug | [Paging, TLBs](../lectures/os19-memory-management-paging-tlb.pdf "Paging, TLBs") |  |  |
-|   |  |  |  |  |
-|   | 2 Sep |  |  |  |
-|   | 3 Sep | [Paging + Advanced Paging](../lectures/os19-memory-management-paging-advanced.pdf "Paging + Advanced Paging") |  |  |
-|  15 | 4 Sep |  | Chapter 14 questions |  |
-|  16 | 4 Sep | [Free memory management](../lectures/free-space.pdf "Free memory management") |  |  |
-|  17 | 6 Sep | [Advanced Paging, Swapping](../lectures/os19-memory-management-swapping.pdf "Advanced Paging, Swapping") |  | Project phase 1 updates |
-|   |  |  |  |  |
-|  18 | 10 Sep | [Swapping](../lectures/os19-swapping.pdf "Swapping") |  |  |
-|   | 11 Sep | [Swapping 2](../lectures/os19-swapping-2.pdf "Swapping 2") | Chapter 15-17 |  |
-|  19 | 12 Sep |  |  |  |
-|  20 | 13 Sep | [Quiz 2](https://docs.google.com/document/d/1RWaJ51t04Meg5jnpFr1BHXCpK5ZCJpu8VlnigL6XoXY/edit "Quiz 2") |  |  |
-|   |  |  |  |  |
-|   | 16 Sep |  | Lab quiz (Before concurrency) |  |
-|  21 | 17 Sep | [Concurrency and threads](../lectures/os19-concurrency.pdf "Concurrency and threads") |  |  |
-|   | 18 Sep | [Linux Memory Management](https://www.youtube.com/watch?v=7aONIVSXiJ8 "Linux Memory Management") |  |  |
-|  22 | 19 Sep | Concurrency (above continued) |  |  |
-|  23 | 20 Sep | [Concurrency: Locks ](../lectures/os19-concurrency-2.pdf "Concurrency: Locks ") |  |  |
-|   |  |  |  |  |
-|  24 | 24 Sep | [Concurrency - 3](../lectures/os19-concurrency-3.pdf "Concurrency - 3") |  |  |
-|   | 25 Sep |  | [Thread Introduction + Chrome Process Model](https://github.com/nipunbatra/nipunbatra.github.io/blob/master/teaching/os-fall-18/labs/19-Sep.md "Thread Introduction + Chrome Process Model") |  |
-|  25 | 26 Sep | Concurrency (above continued) |  |  |
-|   | 27 Sep | Mid Sem and Break |  |  |
-|   |  |  |  |  |
-|  26 | 15 Oct | Concurrency - 3 revision (same slides as above) |  |  |
-|   | 16 Oct |  | [Thread API + Locks](https://github.com/nipunbatra/nipunbatra.github.io/blob/master/teaching/os-fall-18/labs/26-Sep.md "Thread API + Locks") |  |
-|  27 | 17 Oct | [Condition Variables](../lectures/os19-cv.pdf "Condition Variables") |  |  |
-|   | 18 Oct | No Class |  |  |
-|   |  |  |  |  |
-|   | 21 Oct |  |  |  |
-|  28 | 22 Oct | [Condition Variables 2](../lectures/os19-concurrency-cv-2.pdf "Condition Variables 2") | [Locks part 2](https://github.com/nipunbatra/nipunbatra.github.io/blob/master/teaching/os-fall-18/labs/17-Oct.md "Locks part 2") |  |
-|  29 | 23 Oct | [Semaphores](../lectures/os19-concurrency-cv-semaphores.pdf "Semaphores") |  |  |
-|  30 | 25 Oct | [Semaphores-deadlock 1](../lectures/os19-semaphores-deadlocks.pdf "Semaphores-deadlock 1") |  |  |
-|   |  |  |  |  |
-|   |  |  |  |  |
-|  31 | 29 Oct |  |  |  |
-|  32 | 30 Oct | [Semaphores-deadlock 2](../lectures/os19-semaphores-deadlocks-2.pdf "Semaphores-deadlock 2") | [Concurrent data structures](https://github.com/nipunbatra/nipunbatra.github.io/blob/master/teaching/os-fall-18/labs/24-Oct.md "Concurrent data structures") |  |
-|   |  | [Bugs](../lectures/os19-bugs.pdf "Bugs") |  |  |
-|  33 | 31 Oct | [IO+HDD](../lectures/os19-io-disk.pdf "IO+HDD") |  |  |
-|  34 | 1 Nov | [HDD+RAID](../lectures/os19-raid-1.pdf "HDD+RAID") |  |  |
-|   |  |  |  |  |
-|   | 5 Nov | Quiz 3 |  | Project final demo |
-|  35 | 6 Nov | [RAID-2](../lectures/os19-raid-2.pdf "RAID-2") | Chapter 39 |  |
-|   |  | Files and Directories |  |  |
-|  36 | 8 Nov | Filesystems |  |  |
-|   |  |  |  |  |
-|  37 | 11 Nov | Filesystems implementation |  |  |
-|   | 12 Nov |  |  |  |
-|   | 13 Nov |  |  |  |
-|   | 15 Nov |  |  | Assignment #2 Deadline |
-|   |  |  |  |  |
-|   | 18 Nov |  |  |  |
-|   | 19 Nov | Quiz 4 |  |  |
-|   | 20 Nov |  |  | OS Zine deadline |
-|   | 21 Nov |  |  |  |
-|   | 22 Nov |  |  |  |
-|   |  |  |  |  |
-|   | 25 Nov |  | Lab exam |  |
+|   | 15 Aug | File System [Slide1](https://nipunbatra.github.io/os2018/lectures/30-filesystem-1.pdf), [Slides2](https://nipunbatra.github.io/os2018/lectures/31-filesystem-2.pdf) [Slides3](https://nipunbatra.github.io/os2018/lectures/32-filesystem-implementation.pdf) [Zoom Meeting 1](https://drive.google.com/file/d/18EIUvNHDe-DPIfIhDXQH0fZKsIZ6IQ_x/view?usp=sharing), [Zoom Meeting 2](https://drive.google.com/file/d/1RgptreATk07cECDhGU5hYW5E802cU1Vw/view?usp=sharing) |  |  |
+|  7 | 18 Aug | [Memory management 1](../lectures/os19-memory-management.pdf), [Video](https://www.youtube.com/watch?v=jM0Fc9HNO64&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=11) [Memory management 2 (Base and Bounds)](../lectures/os19-memory-management-segmentation.pdf), [Video](https://www.youtube.com/watch?v=x4L4lgY3Clg&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=12) (first 32 mins) |  |  |
+|  8 | 19 Aug | [Segmentation](../lectures/os19-memory-management-segmentation.pdf), [Segmentation 2, ](../lectures/os19-memory-management-segmentation-2.pdf) [Video 1](https://www.youtube.com/watch?v=x4L4lgY3Clg&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=12) (32 mins onwards) [Video 3](https://www.youtube.com/watch?v=powd2SIH3Hk&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=13) (till 27 mins)|  |  |
+|  10 | 21 Aug | [Paging1, ](../lectures/os19-memory-management-segmentation-2.pdf) [Video, ](https://www.youtube.com/watch?v=powd2SIH3Hk&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=13) (27 mins onwards) [Paging2, ](../lectures/os19-memory-management-paging-tlb.pdf) [Video](https://www.youtube.com/watch?v=-R0bx_N_QjE&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=14) (first 33 mins) |  |  |
