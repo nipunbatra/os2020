@@ -59,7 +59,7 @@ Run `ps -eo user --no-header | sort | uniq -c`.
 Run `ps <PID>`. If the process you want to see has PID 1234, run `ps 1243` to find its parent.
 
 ### Question 10
-**Q:** Find its parent
+**Q:** Find its parent.
 
 **A:** 
 Run `ps -o ppid= -p <PID>`. If the child has PID 1234, run `ps -o ppid= -p 1234`.
@@ -68,4 +68,29 @@ Run `ps -o ppid= -p <PID>`. If the child has PID 1234, run `ps -o ppid= -p 1234`
 **Q:** Find details of multiple processes using PID list.
 
 **A:** 
-If you want to find information about PIDs 123,234 and 456 run `ps =p 123,234,456`.
+If you want to find information about PIDs 123, 234 and 456 run `ps =p 123,234,456`.
+
+### Question 12
+**Q:** Use `-o` to output PID, PPID.
+
+**A:** Run `ps -o pid,ppid`.
+
+### Question 13
+**Q:** Find total running time of all processes.
+
+**A:** For running time of single process (suppose PID is 1) run `ps -p -1 -o etime`. For running time of all processes run `ps -eo user, label, etime`.
+
+### Question 14
+**Q:** Sort processes in decreasing order of running time.
+
+**A:** Run `ps -eo user, label, etime --sort=-etime`.
+
+### Question 15
+**Q:** Use `watch` utility to perform real-time monitoring over `ps`.
+
+**A:** Run `watch -n 1 'ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head'`. `-n 1` specifies the refresh rate to be 1 second. You can set it to decimals like 0.1 seconds (`-n 0.1`) too.
+
+### Question 15
+**Q:** Change the monitoring period of watch
+
+**A:** Run `watch -n 0.1 'ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head'`. `-n 0.1` specifies the monitoring frequency to be 0.1 seconds.
