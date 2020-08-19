@@ -7,7 +7,31 @@ description: "Questions and Solutions for all Labs held"
 
 # Table of Contents
 - [Lab 1](#lab-1)
+  * [Question 1](#question-1)
+  * [Question 2](#question-2)
+  * [Question 3](#question-3)
+  * [Question 4](#question-4)
+  * [Question 5](#question-5)
+  * [Question 6](#question-6)
+  * [Question 7](#question-7)
+  * [Question 8](#question-8)
+  * [Question 9](#question-9)
+  * [Question 10](#question-10)
+  * [Question 11](#question-11)
+  * [Question 12](#question-12)
+  * [Question 13](#question-13)
+  * [Question 14](#question-14)
+  * [Question 15](#question-15)
+  * [Question 16](#question-16)
 - [Lab 2](#lab-2)
+  * [Question 1](#question-1-1)
+  * [Question 2](#question-2-1)
+  * [Question 3](#question-3-1)
+  * [Question 4](#question-4-1)
+  * [Question 5](#question-5-1)
+  * [Question 6](#question-6-1)
+  * [Question 7](#question-7-1)
+  * [Question 8](#question-8-1)
 
 # Lab 1
 ### Question 1
@@ -159,7 +183,7 @@ Changing the value of myVariable in child to 200
 The changed value of myVariable from child is 200
 ```
 
-**Obseravtion:** The child and parent have separate copies of the variable and changing one doesn’t affect the other.
+**Observation:** The child and parent have separate copies of the variable and changing one doesn’t affect the other.
 
 ### Question 2
 
@@ -322,3 +346,323 @@ goodbye, I am parent of 995 (pid:994)
 ```
 
 **Observation:** We can use `for` loop to implement waiting for some time. Alternatively you could use `sleep()`. 
+
+### Question 4
+
+**Q:**  Write a program that calls `fork()` and then calls some form of `exec()` to run the program `/bin/ls`. See if you can try all of the variants of `exec()`, including (on Linux) `execl()`, `execle()`, `execlp()`, `execv()`, `execvp()`, and `execvpe()`. Why do you think there are so many variants of the same basic call?
+
+**Code:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h> //this header is important
+#include <string.h>
+#include <sys/wait.h>
+ 
+int main(int argc, char *argv[])
+{
+    printf("hello world (pid:%d)\n", (int)getpid());
+    int rc = fork();
+    if (rc < 0)
+    {
+        // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    }
+    else if (rc == 0)
+    {
+        // child (new process)
+        printf("hello, I am child (pid:%d)\n", (int)getpid());
+ 
+        //     int execl(const char *pathname, const char *arg, ...
+        //                    /* (char  *) NULL */);
+        //    int execlp(const char *file, const char *arg, ...
+        //                    /* (char  *) NULL */);
+        //    int execle(const char *pathname, const char *arg, ...
+        //                    /*, (char *) NULL, char *const envp[] */);
+        //    int execv(const char *pathname, char *const argv[]);
+        //    int execvp(const char *file, char *const argv[]);
+        //    int execvpe(const char *file, char *const argv[],
+        //                    char *const envp[]);
+ 
+        // Function Description POSIX?
+        // execl()  NULL-terminated argument list   Yes
+        // execle() NULL-terminated argument list, specify the new process's environment    Yes
+        // execlp() NULL-terminated argument list, search for the new process in PATH   Yes
+        // execlpe()    NULL-terminated argument list, search for the new process in PATH, specify the new process's environment    No
+        // execv()  NULL-terminated array of arguments  Yes
+        // execve() NULL-terminated array of arguments, specify the new process's environment   Yes
+        // execvp() NULL-terminated array of arguments, search for the new process in PATH  Yes
+        // execvpe()    NULL-terminated array of arguments, search for the new process in PATH, specify the new process's environment   No
+ 
+        char *myargs[3];
+        myargs[0] = strdup("ls");         // program: "ls"
+        myargs[1] = strdup("-a");         // argument:
+        myargs[2] = NULL;                 // marks end of array
+        char *const envp[2] = {"", NULL}; // here you can set environment variables.
+ 
+        //uncomment the next line to execute execvp
+        //execvp(myargs[0], myargs);
+        execle("/usr/bin/ls", "-a", NULL, envp);
+ 
+        printf("this shouldn't print out");
+    }
+    else
+    {
+        // parent goes down this path (original process)
+        int wc = wait(NULL);
+        printf("hello, I am parent of %d (wc:%d) (pid:%d)\n",
+               rc, wc, (int)getpid());
+    }
+    return 0;
+}
+```
+
+**Output:**
+```
+hello world (pid:1213)
+hello, I am child (pid:1214)
+'1 copy.c'   1.c   2.c   3.c   4.c   a.out   myFile.txt
+hello, I am parent of 1214 (wc:1214) (pid:1213)
+```
+
+### Question 5
+
+**Q:** Now write a program that uses `wait()` to wait for the child process to finish in the parent. What does `wait()` return? What happens if you use `wait()` in the child?
+
+**Code**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+ 
+int
+main(int argc, char *argv[])
+{
+    printf("hello world (pid:%d)\n", (int) getpid());
+    int rc = fork();
+    if (rc < 0) {
+        // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    } else if (rc == 0) {
+        // child (new process)
+        printf("hello, I am child (pid:%d)\n", (int) getpid());
+    sleep(1);
+    } else {
+        // parent goes down this path (original process)
+        int wc = wait(NULL);
+        printf("hello, I am parent of %d (wc:%d) (pid:%d)\n",
+           rc, wc, (int) getpid());
+    }
+    return 0;
+}
+```
+
+**Code (with wait in child):**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+ 
+int main(int argc, char *argv[])
+{
+    printf("hello world (pid:%d)\n", (int)getpid());
+    int rc = fork();
+    if (rc < 0)
+    {
+        // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    }
+    else if (rc == 0)
+    {
+        // child (new process)
+        printf("hello, I am child (pid:%d)\n", (int)getpid());
+        sleep(1);
+        int wc = wait(NULL);
+        printf("The value of return from wait in child program is %d\n", wc);
+    }
+    else
+    {
+        // parent goes down this path (original process)
+        int wc = wait(NULL);
+        printf("hello, I am parent of %d (wc:%d) (pid:%d)\n",
+               rc, wc, (int)getpid());
+    }
+    return 0;
+}
+```
+
+**Observations:** `wait()` returns the PID of the child process when used in the parent. `wait()` returns the `-1`  when used in the child.
+
+### Question 6
+
+**Q:** Write a slight modification of the previous program, this time using `waitpid()` instead of `wait()`. When would `waitpid()` be useful?
+
+**Code:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+ 
+#include <sys/types.h> 
+ 
+int main(int argc, char *argv[])
+{
+    printf("hello world (pid:%d)\n", (int)getpid());
+    pid_t rc = fork();
+    int status;
+    if (rc < 0)
+    {
+        // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    }
+    else if (rc == 0)
+    {
+        // child (new process)
+        printf("hello, I am child (pid:%d)\n", (int)getpid());
+        sleep(1);
+    }
+    else
+    {
+        // parent goes down this path (original process)
+        //         Wait for a child matching PID to die.
+        // If PID is greater than 0, match any process whose process ID is PID.
+        // If PID is (pid_t) -1, match any process.
+        // If PID is (pid_t) 0, match any process with the
+        // same process group as the current process.
+        // If PID is less than -1, match any process whose
+        // process group is the absolute value of PID.
+        // If the WNOHANG bit is set in OPTIONS, and that child
+        // is not already dead, return (pid_t) 0. If successful,
+        // return PID and store the dead child's status in STAT_LOC.
+        // Return (pid_t) -1 for errors. If the WUNTRACED bit is
+        // set in OPTIONS, return status for stopped children; otherwise don't.
+
+        pid_t wc = waitpid(rc, &status, WUNTRACED);
+        printf("hello, I am parent of %d (wc:%d) (pid:%d)\n",
+               rc, wc, (int)getpid());
+    }
+    return 0;
+}
+```
+
+**Observation:** `waitpid` allows for more finegrained control over which process to wait for, what to wait
+
+### Question 7
+
+**Q:** Write a program that creates a child process, and then in the child closes standard output (`STDOUT FILENO`). What happens if the child calls `printf()` to print some output after closing the descriptor?
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <assert.h>
+#include <sys/wait.h>
+ 
+int
+main(int argc, char *argv[])
+{
+    int rc = fork();
+    if (rc < 0) {
+        // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    } else if (rc == 0) {
+    // child: redirect standard output to a file
+    close(STDOUT_FILENO); 
+    open("theoutput.txt", O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
+    printf("I am printing from the child\n");
+    
+    } else {
+        // parent goes down this path (original process)
+        int wc = wait(NULL);
+    assert(wc >= 0);
+    }
+    return 0;
+}
+```
+
+**Observation:** If you don’t open a file to redirect the output printed by the child, the output is lost.
+
+### Question 8
+
+**Q:** Write a program that creates two children, and connects the standard output of one to the standard input of the other, using the `pipe()` system call.
+
+**Code:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <assert.h>
+#include <sys/wait.h>
+ 
+int main(int argc, char *argv[])
+{
+    int fd1[2]; // Used to store two ends of first pipe
+    //[0] is the reading end
+    //[1] is the writing end
+    if (pipe(fd1) == -1)
+    {
+        fprintf(stderr, "Pipe Failed");
+        return 1;
+    }
+ 
+    int rc1 = fork();
+    if (rc1 < 0)
+    {
+        // fork failed; exit
+        fprintf(stderr, "fork failed\n");
+        exit(1);
+    }
+    else if (rc1 == 0)
+    { //body of the first child
+ 
+        // child: redirect standard output to a file
+        //setting the standard output of first child to end of the pipe
+        /* Standard file descriptors.  */
+        // #define  STDIN_FILENO    0   /* Standard input.  */
+        // #define  STDOUT_FILENO   1   /* Standard output.  */
+        // #define  STDERR_FILENO   2   /* Standard error output.  */
+        dup2(fd1[1], 1); // redirect stdout
+ 
+        printf("Hello this is a message from first child\n");
+    }
+    else
+    {
+        int rc2 = fork();
+        if (rc2 < 0)
+        {
+            // fork failed; exit
+            fprintf(stderr, "fork failed\n");
+            exit(1);
+        }
+        else if (rc2 == 0)
+        {
+            //body of the second child
+            dup2(fd1[0], STDIN_FILENO); //setting the input of second child to output of first)
+            sleep(1);
+            char message[100];
+            //scanf("%s",message);
+            gets(message);
+            printf("The message from the first child is \"%s\"\n", message);
+        }
+        else
+        {
+            //body of the parent
+            //sleep(1);
+            wait(NULL);
+        }
+    }
+    return 0;
+}
+```
