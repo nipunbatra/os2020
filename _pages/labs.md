@@ -5,6 +5,10 @@ title: Labs
 description: "Questions and Solutions for all Labs held"
 ---
 
+# Table of Contents
+- [Lab 1](#lab-1)
+- [Lab 2](#lab-2)
+
 # Lab 1
 ### Question 1
 **Q:** Fire the terminal and run the `ps` command on the terminal without any arguments. What output do you see? Where is this program being run?
