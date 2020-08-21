@@ -13,7 +13,7 @@ description: CS 301
 * Google Classroom link: g27z27x
 * Teaching mode: The class will be run in flipped format
 *   Instructor: Nipun Batra (nipun.batra@iitgn.ac.in)
-*   Teaching Assistants: Tom Glint, Rishiraj Adhikary, Vraj Patel, Rohan Patil
+*   Teaching Assistants: Tom Glint, Rishiraj Adhikary, Vraj Patel, Rohan Patil, Prakash Rajan
 *   Course Timings
     *   Lectures: Tuesday (11 AM - 12 Noon), Wednesday (11 AM - 12 Noon), Friday (11 AM - 12 Noon) 
     *   Labs: Thursday (3:00 PM - 5:00 PM) 
