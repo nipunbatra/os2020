@@ -1,0 +1,10 @@
+<div style="clear: both; border-bottom: 1px solid black; height:200px;">
+    <div style="float: left;">
+      <img src="{{ include.image_path }}" style="max-width: 200px; max-height: 190px;" alt="">
+    </div>
+    <div style="postive: relative;padding-left:300px;">
+      <h3><b>{{ include.title }}</b></h3>
+      {{ include.description | markdownify }} 
+      <a href="{{ include.pdf_path }}">[Poster]</a>     <a href="{{ include.video_path }}">[Video]</a>
+    </div>
+  </div>

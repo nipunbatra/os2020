@@ -1,0 +1,1 @@
+for i in `ls *.pdf | sort -f`; do echo "{% include zine_holder.html image_path=\"../Zines/${i%???}png\" title=\"${i%????}\" description=\"Student 1 and Student 2\" pdf_path=\"../Zines/$i\" %}";  done

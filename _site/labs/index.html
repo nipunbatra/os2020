@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Operating Systems | Labs</title>
+  <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+">
+
+  
+
+  <link rel="shortcut icon" href="http://localhost:4000/os2020/assets/img/favicon.ico">
+
+  <link rel="stylesheet" href="http://localhost:4000/os2020/assets/css/main.css">
+  <link rel="canonical" href="http://localhost:4000/os2020/labs/">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    
+    <span class="site-title">
+        
+        <strong>Operating</strong> Systems
+    </span>
+    
+
+    <nav class="site-nav">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+      <div class="trigger">
+        <!-- About -->
+        <a class="page-link" href="http://localhost:4000/os2020/">Course Home</a>
+
+        <!-- Pages -->
+        
+          
+        
+          
+            <a class="page-link" href="http://localhost:4000/os2020/feedback/">Feedback</a>
+          
+        
+          
+            <a class="page-link" href="http://localhost:4000/os2020/labs/">Labs</a>
+          
+        
+          
+            <a class="page-link" href="http://localhost:4000/os2020/lectures/">Lectures</a>
+          
+        
+          
+        
+          
+            <a class="page-link" href="http://localhost:4000/os2020/zine/">Zine</a>
+          
+        
+          
+        
+          
+        
+
+        <a class="page-link" href="https://nipunbatra.github.io/">Instructor Webpage</a>
+        <!-- CV link -->
+        <!-- <a class="page-link" href="http://localhost:4000/os2020/assets/pdf/CV.pdf">vitae</a> -->
+
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Labs</h1>
+    <h5 class="post-description">Questions and Solutions for all Labs held</h5>
+  </header>
+
+  <article class="post-content Labs clearfix">
+    <h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+  <li><a href="#lab-1">Lab 1</a>
+    <ul>
+      <li><a href="#question-1">Question 1</a></li>
+      <li><a href="#question-2">Question 2</a></li>
+      <li><a href="#question-3">Question 3</a></li>
+      <li><a href="#question-4">Question 4</a></li>
+      <li><a href="#question-5">Question 5</a></li>
+      <li><a href="#question-6">Question 6</a></li>
+      <li><a href="#question-7">Question 7</a></li>
+      <li><a href="#question-8">Question 8</a></li>
+      <li><a href="#question-9">Question 9</a></li>
+      <li><a href="#question-10">Question 10</a></li>
+      <li><a href="#question-11">Question 11</a></li>
+      <li><a href="#question-12">Question 12</a></li>
+      <li><a href="#question-13">Question 13</a></li>
+      <li><a href="#question-14">Question 14</a></li>
+      <li><a href="#question-15">Question 15</a></li>
+      <li><a href="#question-16">Question 16</a></li>
+    </ul>
+  </li>
+  <li><a href="#lab-2">Lab 2</a>
+    <ul>
+      <li><a href="#question-1-1">Question 1</a></li>
+      <li><a href="#question-2-1">Question 2</a></li>
+      <li><a href="#question-3-1">Question 3</a></li>
+      <li><a href="#question-4-1">Question 4</a></li>
+      <li><a href="#question-5-1">Question 5</a></li>
+      <li><a href="#question-6-1">Question 6</a></li>
+      <li><a href="#question-7-1">Question 7</a></li>
+      <li><a href="#question-8-1">Question 8</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="lab-1">Lab 1</h1>
+<h3 id="question-1">Question 1</h3>
+<p><strong>Q:</strong> Fire the terminal and run the <code class="language-plaintext highlighter-rouge">ps</code> command on the terminal without any arguments. What output do you see? Where is this program being run?</p>
+
+<p><strong>A:</strong> 
+Reports a snapshot of the current processes. By default it returns the Process ID, the terminal, the duration, and command that is running. The TTY corresponding to ps gives the terminal in which this ps command is running.</p>
+
+<h3 id="question-2">Question 2</h3>
+<p><strong>Q:</strong> Fire up a program. Can you see it using <code class="language-plaintext highlighter-rouge">ps</code>?</p>
+
+<p><strong>A:</strong> No. To list all programs run by the user run <code class="language-plaintext highlighter-rouge">ps -e</code> instead of <code class="language-plaintext highlighter-rouge">ps</code>.</p>
+
+<h3 id="question-3">Question 3</h3>
+<p><strong>Q:</strong> Look at the manual for ps using man ps. Try out the command with all the flags and note the output in each case.</p>
+
+<p><strong>A:</strong> 
+Run <code class="language-plaintext highlighter-rouge">man ps</code> in your terminal</p>
+
+<h3 id="question-4">Question 4</h3>
+<p><strong>Q:</strong> How can you get details of all the running processes?</p>
+
+<p><strong>A:</strong> 
+Run <code class="language-plaintext highlighter-rouge">ps -e -l</code> in your terminal. The <code class="language-plaintext highlighter-rouge">-e</code> option displays all processes running. The <code class="language-plaintext highlighter-rouge">-l</code> option is for displaying the information in long format i.e. to display more information for each process than the plain <code class="language-plaintext highlighter-rouge">ps</code> command.</p>
+
+<h3 id="question-5">Question 5</h3>
+<p><strong>Q:</strong> Which order are the above processes sorted by? Can you sort them using same criteria but opposite order?</p>
+
+<p><strong>A:</strong> 
+They processes are sorted by the process ID by default. Inorder to reverse sort by process ID use <code class="language-plaintext highlighter-rouge">ps --sort -pid -e</code>.</p>
+
+<h3 id="question-6">Question 6</h3>
+<p><strong>Q:</strong> Can you sort them using some other criteria? i.e. by CPU usage?</p>
+
+<p><strong>A:</strong> Use <code class="language-plaintext highlighter-rouge">ps --sort=-%cpu -au</code>. <code class="language-plaintext highlighter-rouge">-au</code> gives all the information about the processes run by the current user.</p>
+
+<h3 id="question-7">Question 7</h3>
+<p><strong>Q:</strong> Use ps to find unique users?</p>
+
+<p><strong>A:</strong> 
+Run <code class="language-plaintext highlighter-rouge">ps -eo user --no-header | sort -u</code>.</p>
+
+<h3 id="question-8">Question 8</h3>
+<p><strong>Q:</strong> Find number of processes per user.</p>
+
+<p><strong>A:</strong> 
+Run <code class="language-plaintext highlighter-rouge">ps -eo user --no-header | sort | uniq -c</code>.</p>
+
+<h3 id="question-9">Question 9</h3>
+<p><strong>Q:</strong> Find process by PID.</p>
+
+<p><strong>A:</strong> 
+Run <code class="language-plaintext highlighter-rouge">ps &lt;PID&gt;</code>. If the process you want to see has PID 1234, run <code class="language-plaintext highlighter-rouge">ps 1243</code> to find its parent.</p>
+
+<h3 id="question-10">Question 10</h3>
+<p><strong>Q:</strong> Find its parent.</p>
+
+<p><strong>A:</strong> 
+Run <code class="language-plaintext highlighter-rouge">ps -o ppid= -p &lt;PID&gt;</code>. If the child has PID 1234, run <code class="language-plaintext highlighter-rouge">ps -o ppid= -p 1234</code>.</p>
+
+<h3 id="question-11">Question 11</h3>
+<p><strong>Q:</strong> Find details of multiple processes using PID list.</p>
+
+<p><strong>A:</strong> 
+If you want to find information about PIDs 123, 234 and 456 run <code class="language-plaintext highlighter-rouge">ps =p 123,234,456</code>.</p>
+
+<h3 id="question-12">Question 12</h3>
+<p><strong>Q:</strong> Use <code class="language-plaintext highlighter-rouge">-o</code> to output PID, PPID.</p>
+
+<p><strong>A:</strong> Run <code class="language-plaintext highlighter-rouge">ps -o pid,ppid</code>.</p>
+
+<h3 id="question-13">Question 13</h3>
+<p><strong>Q:</strong> Find total running time of all processes.</p>
+
+<p><strong>A:</strong> For running time of single process (suppose PID is 1) run <code class="language-plaintext highlighter-rouge">ps -p -1 -o etime</code>. For running time of all processes run <code class="language-plaintext highlighter-rouge">ps -eo user, label, etime</code>.</p>
+
+<h3 id="question-14">Question 14</h3>
+<p><strong>Q:</strong> Sort processes in decreasing order of running time.</p>
+
+<p><strong>A:</strong> Run <code class="language-plaintext highlighter-rouge">ps -eo user, label, etime --sort=-etime</code>.</p>
+
+<h3 id="question-15">Question 15</h3>
+<p><strong>Q:</strong> Use <code class="language-plaintext highlighter-rouge">watch</code> utility to perform real-time monitoring over <code class="language-plaintext highlighter-rouge">ps</code>.</p>
+
+<p><strong>A:</strong> Run <code class="language-plaintext highlighter-rouge">watch -n 1 'ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head'</code>. <code class="language-plaintext highlighter-rouge">-n 1</code> specifies the refresh rate to be 1 second. You can set it to decimals like 0.1 seconds (<code class="language-plaintext highlighter-rouge">-n 0.1</code>) too.</p>
+
+<h3 id="question-16">Question 16</h3>
+<p><strong>Q:</strong> Change the monitoring period of watch</p>
+
+<p><strong>A:</strong> Run <code class="language-plaintext highlighter-rouge">watch -n 0.1 'ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head'</code>. <code class="language-plaintext highlighter-rouge">-n 0.1</code> specifies the monitoring frequency to be 0.1 seconds.</p>
+
+<h1 id="lab-2">Lab 2</h1>
+
+<h3 id="question-1-1">Question 1</h3>
+<p><strong>Q:</strong> Write a program that calls <code class="language-plaintext highlighter-rouge">fork()</code>. Before calling <code class="language-plaintext highlighter-rouge">fork()</code>, have the main process access a variable (e.g., <code class="language-plaintext highlighter-rouge">x</code>) and set its value to something (e.g., <code class="language-plaintext highlighter-rouge">100</code>). What value is the variable in the child process? What happens to the variable when both the child and parent change the value of x?</p>
+
+<p><strong>Code:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">myVariable</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"hello world (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Value of myVariable before fork is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">myVariable</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// fork failed; exit`</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// child (new process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am child (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Value of myVariable from child is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">myVariable</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Changing the value of myVariable in child to 200</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">myVariable</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"The changed value of myVariable from child is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">myVariable</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am parent of %d (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+               <span class="n">rc</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Value of myVariable from parent after fork is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">myVariable</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Changing the value of myVariable in parent to 300</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">myVariable</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"The changed value of myVariable from parent is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">myVariable</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Output:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world (pid:529)
+Value of myVariable before fork is 100
+hello, I am parent of 530 (pid:529)
+Value of myVariable from parent after fork is 100
+Changing the value of myVariable in parent to 300
+The changed value of myVariable from parent is 300
+hello, I am child (pid:530)
+Value of myVariable from child is 100
+Changing the value of myVariable in child to 200
+The changed value of myVariable from child is 200
+</code></pre></div></div>
+
+<p><strong>Observation:</strong> The child and parent have separate copies of the variable and changing one doesn’t affect the other.</p>
+
+<h3 id="question-2-1">Question 2</h3>
+
+<p><strong>Q:</strong>  Write a program that opens a file (with the <code class="language-plaintext highlighter-rouge">open()</code> system call) and then calls <code class="language-plaintext highlighter-rouge">fork()</code> to create a new process. Can both the child and parent access the file descriptor returned by <code class="language-plaintext highlighter-rouge">open()</code>? What happens when they are writing to the file concurrently, i.e., at the same time?</p>
+
+<p><strong>Code for simultaneous reading:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;sys/wait.h&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"hello world (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"q2.c"</span><span class="p">,</span> <span class="n">O_RDONLY</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Unable to open the file</span><span class="se">\n</span><span class="s"> exiting....</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// fork failed; exit`</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// child (new process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am child (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+        <span class="kt">char</span> <span class="n">myChar</span><span class="p">;</span>
+        <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myChar</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Reading a character from the file from child and printing it</span><span class="se">\n</span><span class="s">%c</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">myChar</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am parent of %d (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+               <span class="n">rc</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+        <span class="kt">char</span> <span class="n">myChar</span><span class="p">;</span>
+        <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myChar</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Reading a character from the file from parent and printing it</span><span class="se">\n</span><span class="s">%c</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">myChar</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Output:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world (pid:754)
+hello, I am child (pid:755)
+Reading a character from the file from child and printing it
+#
+hello, I am parent of 755 (pid:754)
+Reading a character from the file from parent and printing it
+i
+</code></pre></div></div>
+
+<p><strong>Observation:</strong> Both share the same descriptor.</p>
+
+<p><strong>Code for simultaneous writing:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;sys/wait.h&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"hello world (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"myFile.txt"</span><span class="p">,</span> <span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_RDWR</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">){</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Unable to open the file</span><span class="se">\n</span><span class="s"> exiting....</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// fork failed; exit`</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// child (new process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am child (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+        <span class="kt">char</span> <span class="n">myChar</span><span class="o">=</span><span class="sc">'a'</span><span class="p">;</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myChar</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"writing a character to the file from child</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">//wait(NULL);</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am parent of %d (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+               <span class="n">rc</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+        <span class="kt">char</span> <span class="n">myChar</span><span class="o">=</span><span class="sc">'b'</span><span class="p">;</span>
+        <span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">myChar</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"writing a character to the file from parent</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Observation:</strong> Both can write to the same file, but their outputs in file will appear in some random order.</p>
+
+<h3 id="question-3-1">Question 3</h3>
+
+<p><strong>Q:</strong>  Write another program using <code class="language-plaintext highlighter-rouge">fork()</code>. The child process should print “hello”; the parent process should print “goodbye”. You should try to ensure that the child process always prints first; can you do this <em>without</em> calling <strong>wait()</strong> in the parent?</p>
+
+<p><strong>Code:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">myVariable</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"hello world (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// fork failed; exit`</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// child (new process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am child (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"goodbye, I am parent of %d (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+               <span class="n">rc</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Output:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world (pid:994)
+hello, I am child (pid:995)
+goodbye, I am parent of 995 (pid:994)
+</code></pre></div></div>
+
+<p><strong>Observation:</strong> We can use <code class="language-plaintext highlighter-rouge">for</code> loop to implement waiting for some time. Alternatively you could use <code class="language-plaintext highlighter-rouge">sleep()</code>.</p>
+
+<h3 id="question-4-1">Question 4</h3>
+
+<p><strong>Q:</strong>  Write a program that calls <code class="language-plaintext highlighter-rouge">fork()</code> and then calls some form of <code class="language-plaintext highlighter-rouge">exec()</code> to run the program <code class="language-plaintext highlighter-rouge">/bin/ls</code>. See if you can try all of the variants of <code class="language-plaintext highlighter-rouge">exec()</code>, including (on Linux) <code class="language-plaintext highlighter-rouge">execl()</code>, <code class="language-plaintext highlighter-rouge">execle()</code>, <code class="language-plaintext highlighter-rouge">execlp()</code>, <code class="language-plaintext highlighter-rouge">execv()</code>, <code class="language-plaintext highlighter-rouge">execvp()</code>, and <code class="language-plaintext highlighter-rouge">execvpe()</code>. Why do you think there are so many variants of the same basic call?</p>
+
+<p><strong>Code:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt; //this header is important
+#include &lt;string.h&gt;
+#include &lt;sys/wait.h&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"hello world (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// fork failed; exit</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// child (new process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am child (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+ 
+        <span class="c1">//     int execl(const char *pathname, const char *arg, ...</span>
+        <span class="c1">//                    /* (char  *) NULL */);</span>
+        <span class="c1">//    int execlp(const char *file, const char *arg, ...</span>
+        <span class="c1">//                    /* (char  *) NULL */);</span>
+        <span class="c1">//    int execle(const char *pathname, const char *arg, ...</span>
+        <span class="c1">//                    /*, (char *) NULL, char *const envp[] */);</span>
+        <span class="c1">//    int execv(const char *pathname, char *const argv[]);</span>
+        <span class="c1">//    int execvp(const char *file, char *const argv[]);</span>
+        <span class="c1">//    int execvpe(const char *file, char *const argv[],</span>
+        <span class="c1">//                    char *const envp[]);</span>
+ 
+        <span class="c1">// Function Description POSIX?</span>
+        <span class="c1">// execl()  NULL-terminated argument list   Yes</span>
+        <span class="c1">// execle() NULL-terminated argument list, specify the new process's environment    Yes</span>
+        <span class="c1">// execlp() NULL-terminated argument list, search for the new process in PATH   Yes</span>
+        <span class="c1">// execlpe()    NULL-terminated argument list, search for the new process in PATH, specify the new process's environment    No</span>
+        <span class="c1">// execv()  NULL-terminated array of arguments  Yes</span>
+        <span class="c1">// execve() NULL-terminated array of arguments, specify the new process's environment   Yes</span>
+        <span class="c1">// execvp() NULL-terminated array of arguments, search for the new process in PATH  Yes</span>
+        <span class="c1">// execvpe()    NULL-terminated array of arguments, search for the new process in PATH, specify the new process's environment   No</span>
+ 
+        <span class="kt">char</span> <span class="o">*</span><span class="n">myargs</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+        <span class="n">myargs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">"ls"</span><span class="p">);</span>         <span class="c1">// program: "ls"</span>
+        <span class="n">myargs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="s">"-a"</span><span class="p">);</span>         <span class="c1">// argument:</span>
+        <span class="n">myargs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>                 <span class="c1">// marks end of array</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="k">const</span> <span class="n">envp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">""</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">};</span> <span class="c1">// here you can set environment variables.</span>
+ 
+        <span class="c1">//uncomment the next line to execute execvp</span>
+        <span class="c1">//execvp(myargs[0], myargs);</span>
+        <span class="n">execle</span><span class="p">(</span><span class="s">"/usr/bin/ls"</span><span class="p">,</span> <span class="s">"-a"</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+ 
+        <span class="n">printf</span><span class="p">(</span><span class="s">"this shouldn't print out"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="kt">int</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am parent of %d (wc:%d) (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+               <span class="n">rc</span><span class="p">,</span> <span class="n">wc</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Output:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hello world (pid:1213)
+hello, I am child (pid:1214)
+'1 copy.c'   1.c   2.c   3.c   4.c   a.out   myFile.txt
+hello, I am parent of 1214 (wc:1214) (pid:1213)
+</code></pre></div></div>
+
+<h3 id="question-5-1">Question 5</h3>
+
+<p><strong>Q:</strong> Now write a program that uses <code class="language-plaintext highlighter-rouge">wait()</code> to wait for the child process to finish in the parent. What does <code class="language-plaintext highlighter-rouge">wait()</code> return? What happens if you use <code class="language-plaintext highlighter-rouge">wait()</code> in the child?</p>
+
+<p><strong>Code</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/wait.h&gt;
+</span> 
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"hello world (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">getpid</span><span class="p">());</span>
+    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// fork failed; exit</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// child (new process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am child (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">getpid</span><span class="p">());</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="kt">int</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am parent of %d (wc:%d) (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+           <span class="n">rc</span><span class="p">,</span> <span class="n">wc</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">getpid</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Code (with wait in child):</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/wait.h&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"hello world (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// fork failed; exit</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// child (new process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am child (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"The value of return from wait in child program is %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">wc</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="kt">int</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am parent of %d (wc:%d) (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+               <span class="n">rc</span><span class="p">,</span> <span class="n">wc</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Observations:</strong> <code class="language-plaintext highlighter-rouge">wait()</code> returns the PID of the child process when used in the parent. <code class="language-plaintext highlighter-rouge">wait()</code> returns the <code class="language-plaintext highlighter-rouge">-1</code>  when used in the child.</p>
+
+<h3 id="question-6-1">Question 6</h3>
+
+<p><strong>Q:</strong> Write a slight modification of the previous program, this time using <code class="language-plaintext highlighter-rouge">waitpid()</code> instead of <code class="language-plaintext highlighter-rouge">wait()</code>. When would <code class="language-plaintext highlighter-rouge">waitpid()</code> be useful?</p>
+
+<p><strong>Code:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/wait.h&gt;
+</span> 
+<span class="cp">#include &lt;sys/types.h&gt; 
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"hello world (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="n">pid_t</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">status</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// fork failed; exit</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// child (new process)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am child (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+        <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="c1">//         Wait for a child matching PID to die.</span>
+        <span class="c1">// If PID is greater than 0, match any process whose process ID is PID.</span>
+        <span class="c1">// If PID is (pid_t) -1, match any process.</span>
+        <span class="c1">// If PID is (pid_t) 0, match any process with the</span>
+        <span class="c1">// same process group as the current process.</span>
+        <span class="c1">// If PID is less than -1, match any process whose</span>
+        <span class="c1">// process group is the absolute value of PID.</span>
+        <span class="c1">// If the WNOHANG bit is set in OPTIONS, and that child</span>
+        <span class="c1">// is not already dead, return (pid_t) 0. If successful,</span>
+        <span class="c1">// return PID and store the dead child's status in STAT_LOC.</span>
+        <span class="c1">// Return (pid_t) -1 for errors. If the WUNTRACED bit is</span>
+        <span class="c1">// set in OPTIONS, return status for stopped children; otherwise don't.</span>
+
+        <span class="n">pid_t</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">waitpid</span><span class="p">(</span><span class="n">rc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">,</span> <span class="n">WUNTRACED</span><span class="p">);</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"hello, I am parent of %d (wc:%d) (pid:%d)</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span>
+               <span class="n">rc</span><span class="p">,</span> <span class="n">wc</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">getpid</span><span class="p">());</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Observation:</strong> <code class="language-plaintext highlighter-rouge">waitpid</code> allows for more finegrained control over which process to wait for, what to wait</p>
+
+<h3 id="question-7-1">Question 7</h3>
+
+<p><strong>Q:</strong> Write a program that creates a child process, and then in the child closes standard output (<code class="language-plaintext highlighter-rouge">STDOUT FILENO</code>). What happens if the child calls <code class="language-plaintext highlighter-rouge">printf()</code> to print some output after closing the descriptor?</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;string.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;assert.h&gt;
+#include &lt;sys/wait.h&gt;
+</span> 
+<span class="kt">int</span>
+<span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">rc</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// fork failed; exit</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// child: redirect standard output to a file</span>
+    <span class="n">close</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">);</span> 
+    <span class="n">open</span><span class="p">(</span><span class="s">"theoutput.txt"</span><span class="p">,</span> <span class="n">O_CREAT</span><span class="o">|</span><span class="n">O_WRONLY</span><span class="o">|</span><span class="n">O_TRUNC</span><span class="p">,</span> <span class="n">S_IRWXU</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"I am printing from the child</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// parent goes down this path (original process)</span>
+        <span class="kt">int</span> <span class="n">wc</span> <span class="o">=</span> <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">wc</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>Observation:</strong> If you don’t open a file to redirect the output printed by the child, the output is lost.</p>
+
+<h3 id="question-8-1">Question 8</h3>
+
+<p><strong>Q:</strong> Write a program that creates two children, and connects the standard output of one to the standard input of the other, using the <code class="language-plaintext highlighter-rouge">pipe()</code> system call.</p>
+
+<p><strong>Code:</strong></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;string.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;assert.h&gt;
+#include &lt;sys/wait.h&gt;
+</span> 
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fd1</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// Used to store two ends of first pipe</span>
+    <span class="c1">//[0] is the reading end</span>
+    <span class="c1">//[1] is the writing end</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">pipe</span><span class="p">(</span><span class="n">fd1</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"Pipe Failed"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+ 
+    <span class="kt">int</span> <span class="n">rc1</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rc1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// fork failed; exit</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span> <span class="c1">//body of the first child</span>
+ 
+        <span class="c1">// child: redirect standard output to a file</span>
+        <span class="c1">//setting the standard output of first child to end of the pipe</span>
+        <span class="cm">/* Standard file descriptors.  */</span>
+        <span class="c1">// #define  STDIN_FILENO    0   /* Standard input.  */</span>
+        <span class="c1">// #define  STDOUT_FILENO   1   /* Standard output.  */</span>
+        <span class="c1">// #define  STDERR_FILENO   2   /* Standard error output.  */</span>
+        <span class="n">dup2</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// redirect stdout</span>
+ 
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Hello this is a message from first child</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">rc2</span> <span class="o">=</span> <span class="n">fork</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">rc2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// fork failed; exit</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"fork failed</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rc2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">//body of the second child</span>
+            <span class="n">dup2</span><span class="p">(</span><span class="n">fd1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">STDIN_FILENO</span><span class="p">);</span> <span class="c1">//setting the input of second child to output of first)</span>
+            <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+            <span class="kt">char</span> <span class="n">message</span><span class="p">[</span><span class="mi">100</span><span class="p">];</span>
+            <span class="c1">//scanf("%s",message);</span>
+            <span class="n">gets</span><span class="p">(</span><span class="n">message</span><span class="p">);</span>
+            <span class="n">printf</span><span class="p">(</span><span class="s">"The message from the first child is </span><span class="se">\"</span><span class="s">%s</span><span class="se">\"\n</span><span class="s">"</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="c1">//body of the parent</span>
+            <span class="c1">//sleep(1);</span>
+            <span class="n">wait</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+  </article>
+
+  
+
+  
+
+</div>
+
+      </div>
+    </div>
+
+    
+
+    <!-- Load jQuery -->
+<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+
+<!-- Load Common JS -->
+<script src="http://localhost:4000/os2020/assets/js/common.js"></script>
+
+
+<!-- Load KaTeX -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"></script>
+<script src="http://localhost:4000/os2020/assets/js/katex.js"></script>
+
+
+
+
+<!-- Include custom icon fonts -->
+<link rel="stylesheet" href="http://localhost:4000/os2020/assets/css/fontawesome-all.min.css">
+<link rel="stylesheet" href="http://localhost:4000/os2020/assets/css/academicons.min.css">
+
+
+<!-- Google Analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-96903131-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+
+  </body>
+
+</html>
