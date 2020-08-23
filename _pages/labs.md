@@ -32,6 +32,11 @@ description: "Questions and Solutions for all Labs held"
   * [Question 6](#question-6-1)
   * [Question 7](#question-7-1)
   * [Question 8](#question-8-1)
+ - [Lab 3](#lab-3)
+  * [Question 1](#question-1-2)
+  * [Question 2](#question-2-2)
+  * [Question 3](#question-3-2)
+  * [Question 4](#question-4-2)
 
 # Lab 1
 ### Question 1
@@ -663,6 +668,328 @@ int main(int argc, char *argv[])
             wait(NULL);
         }
     }
+    return 0;
+}
+```
+
+# Lab 3
+
+### Question 1
+
+**Q:** Write your own version of the command line program `stat`, which simply calls the  stat()  system call on a given file or directory. Print out file size, number of blocks allocated, reference (link) count, and so forth. What is the link count of a directory, as the number of entries in the directory changes? Useful interfaces: `stat()`, naturally.
+
+**Code:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+// For stat
+#include <sys/stat.h>
+#include <unistd.h>
+// For catching errors in errno:
+#include <errno.h>
+// For formatting errno to string:
+#include <string.h>
+// For formatting time:
+#include <time.h>
+// For username from UID
+#include <pwd.h>
+// For groupname from GID
+#include <grp.h>
+
+// Here is how the structure returned by stat looks:
+//     struct stat {
+//                 dev_t     st_dev;         /* ID of device containing file */
+//                 ino_t     st_ino;         /* Inode number */
+//                 mode_t    st_mode;        /* File type and mode */
+//                 nlink_t   st_nlink;       /* Number of hard links */
+//                 uid_t     st_uid;         /* User ID of owner */
+//                 gid_t     st_gid;         /* Group ID of owner */
+//                 dev_t     st_rdev;        /* Device ID (if special file) */
+//                 off_t     st_size;        /* Total size, in bytes */
+//                 blksize_t st_blksize;     /* Block size for filesystem I/O */
+//                 blkcnt_t  st_blocks;      /* Number of 512B blocks allocated */
+//                 struct timespec st_atim;  /* Time of last access */
+//                 struct timespec st_mtim;  /* Time of last modification */
+//                 struct timespec st_ctim;  /* Time of last status change */
+//                 
+//                 #define st_atime st_atim.tv_sec      /* Backward compatibility */
+//                 #define st_mtime st_mtim.tv_sec
+//                 #define st_ctime st_ctim.tv_sec
+//     };
+
+void print_stat(char *filename){
+    struct stat file_stat;
+    if (stat(filename, &file_stat) == -1){
+        // Error handling
+        fprintf(stderr, "stat: cannot stat '%s': %s\n", filename,strerror(errno));
+        exit(EXIT_FAILURE);
+    } else {
+        printf("%10s %s\n", "File:", filename);
+        printf("%10s %ld\n", "Size:", file_stat.st_size);
+        printf("%10s %ld\n", "Blocks:", file_stat.st_blocks);
+        printf("%10s %ld\n", "IO Block:", file_stat.st_blksize);
+        printf("%10s ", "File Type:");
+        // How to get the various types of files
+            // S_ISREG(m)  is it a regular file?
+            if(S_ISREG(file_stat.st_mode)) printf("regular file\n");
+            // S_ISDIR(m)  directory?
+            if(S_ISDIR(file_stat.st_mode)) printf("directory\n");
+            // S_ISCHR(m)  character device?
+            if(S_ISCHR(file_stat.st_mode)) printf("character device\n");
+            // S_ISBLK(m)  block device?
+            if(S_ISBLK(file_stat.st_mode)) printf("block device\n");
+            // S_ISFIFO(m) FIFO (named pipe)?
+            if(S_ISFIFO(file_stat.st_mode)) printf("FIFO (named pipe)\n");
+            // S_ISLNK(m)  symbolic link?
+            if(S_ISLNK(file_stat.st_mode)) printf("symbolic link\n");
+            // S_ISSOCK(m) socket?
+            if(S_ISSOCK(file_stat.st_mode)) printf("socket\n");
+        printf("%10s %lx\n", "Device:",file_stat.st_dev);
+        printf("%10s %lu\n", "Inode:", file_stat.st_ino);
+        printf("%10s %lu\n", "Links:", file_stat.st_nlink);
+        printf("%10s %04o\n", "Access:", file_stat.st_mode&0777);
+        // Getting Username from UID
+        struct passwd *pws;
+        pws = getpwuid(file_stat.st_uid);
+        printf("%10s (%5d/%s)\n", "Uid:", file_stat.st_uid , pws->pw_name);
+        //Getting Group Name from GID
+        struct group *grp;
+        grp = getgrgid(file_stat.st_gid);
+        printf("%10s (%5d/%s)\n", "Gid:", file_stat.st_gid , grp->gr_name);
+        // Format times using ctime from time.h
+        printf("%10s %s", "Access:", ctime(&file_stat.st_atime));
+        printf("%10s %s", "Modify:", ctime(&file_stat.st_mtime));
+        printf("%10s %s", "Change:", ctime(&file_stat.st_ctime));
+    }
+}
+
+int main(int argc, char* argv[]){
+    if (argc==1){
+        // If not other argument is given
+        fprintf(stderr,"stat: missing operand\n");
+    } else {
+        // print info one argument at a time
+        for(int i=1;i<argc;i++){
+            print_stat(argv[i]);
+        }
+    }
+    return 0;
+}
+```
+
+### Question 2
+
+**Q:** Write a program that lists files in the given directory. When called without any arguments, the program should just print the file names. When invoked with the `-l` flag, the program should print out information about each file, such as the owner, group, permissions, and other information obtained from the `stat()` system call. The program should take one additional argument, which is the directory to read, e.g., `myls -l directory`. If no directory is given, the program should just use the current working directory. Useful interfaces: `stat()`, `opendir()`, `readdir()`, `getcwd()`.
+
+**Code:**
+```c
+#include <stdio.h>    
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdlib.h>   
+#include <dirent.h>    // opendir, readdir, closedir
+#include <string.h>    // strlen, strncpy, strncat
+#include <stdbool.h>   // For booleans
+#include <errno.h>
+#include <time.h>   
+#include <pwd.h>
+#include <grp.h>
+
+#define STRINGSIZE 1024
+
+void print_file(struct stat sb) {
+    // Getting Username from UID
+    struct passwd *pws;
+    pws = getpwuid(sb.st_uid);
+    //Getting Group Name from GID
+    struct group *grp;
+    grp = getgrgid(sb.st_gid);
+    // Time String
+    char* time_str = ctime(&sb.st_mtime);
+    time_str[strlen(time_str) - 1] = '\0';
+    printf("%6o %3lu %12s %12s %6ld %s ", sb.st_mode, sb.st_nlink , pws->pw_name, grp->gr_name, sb.st_size, time_str);
+}
+
+int main(int argc, char *argv[]) {
+    struct stat sb;
+    char * pathname = ".";
+    bool list;
+    DIR *dp;
+
+    list = (argc>1 && strcmp(argv[1], "-l")==0);
+    if (argc == 2 + list) pathname = argv[1+list];
+    else if(argc!=1 + list) {
+        // Error handling
+        fprintf(stderr,"Usage: %s [-l] [filename]", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    
+    if (stat(pathname, &sb) == -1){
+        // Error handling
+        fprintf(stderr, "stat: cannot stat '%s': %s\n", pathname,strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    if (S_ISDIR(sb.st_mode)) {
+        if ((dp = opendir(pathname)) == NULL){
+            // Error handling
+            fprintf(stderr, "opendir: cannot opendir '%s': %s\n", pathname,strerror(errno));
+            exit(EXIT_FAILURE);
+        }
+        struct dirent *d;
+        while ((d = readdir(dp)) != NULL) {
+            if (list) {
+                char filePath[STRINGSIZE] = "";
+                strncpy(filePath, pathname, strlen(pathname));
+                strncat(filePath, "/", 1);
+                strncat(filePath, d->d_name, strlen(d->d_name));
+                if (stat(filePath, &sb) == -1){
+                    // Error handling
+                    fprintf(stderr, "stat: cannot stat '%s': %s\n", pathname,strerror(errno));
+                    exit(EXIT_FAILURE);
+                }
+                print_file(sb);
+            }
+            printf("%s\n", d->d_name);
+        }
+        closedir(dp);
+    } else {
+        if (list)
+            print_file(sb);
+        printf("%s\n", pathname);
+    }
+    return 0;
+}
+```
+
+### Question 3
+
+**Q:** Write a program that prints out the last few lines of a file. The program should be efficient, in that it seeks to near the end of the file, reads in a block of data, and then goes backwards until it finds the requested number of lines; at this point, it should print out those lines from beginning to the end of the file. To invoke the program, one should type: `mytail -n file`, where `n` is the number of lines at the end of the file to print. Useful interfaces: `stat()`, `lseek()`, `open()`, `read()`, `close()`.
+
+**Code:**
+```c
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+
+int main(int argc, char* argv[]){
+    if(argc != 3 || strlen(argv[1]) <= 1 || argv[1][0] != '-'){
+        fprintf(stderr, "Usage: %s -<offset> <filename>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    } else {
+        int num_lines = atoi(argv[1]+1) - 1;
+        struct stat sb;
+        if (stat(argv[2], &sb) == -1){
+            // Error handling
+            fprintf(stderr, "stat: cannot stat '%s': %s\n", argv[2],strerror(errno));
+            exit(EXIT_FAILURE);
+        } else {
+            int fd = open(argv[2], O_RDONLY);
+            long rd_size = sb.st_blksize;
+            char buf[rd_size+1];
+            long offset = lseek(fd,0,SEEK_END);
+            int bytes_read;
+
+            while (num_lines >= 0 && offset > 0)
+            {
+                int seek_rel_to = (offset>=rd_size)?SEEK_CUR:SEEK_SET;
+                long seek_to =  (offset>=rd_size)?-rd_size:0;
+                int read_len = (offset>=rd_size)?rd_size:offset;
+                lseek(fd, seek_to, seek_rel_to);
+                bytes_read = read(fd,buf,read_len);
+                for(int i=bytes_read;i>=0;i--){
+                    if(buf[i]=='\n'){
+                        num_lines--;
+                        if(num_lines<0){
+                            offset = lseek(fd,-bytes_read + i+1,SEEK_CUR);
+                            goto found_all;
+                        }
+                    }
+                }
+                offset = lseek(fd, seek_to, seek_rel_to);
+            }
+            
+            found_all:
+            while((bytes_read = read(fd,buf,rd_size)) > 0){
+                buf[bytes_read] = '\0';
+                printf("%s", buf);
+            }
+            close(fd);
+        }
+    }
+    return 0;
+}
+```
+
+### Question 4
+
+**Q:** Write a program that prints out the names of each file and directory in the file system tree, starting at a given point in the tree. For example, when run without arguments, the program should start with the current working directory and print its contents, as well as the contents of any sub-directories, etc., until the entire tree, root at the CWD, is printed. If given a single argument (of a directory name), use that as the root of the tree instead. Refine your recursive search with more fun options, similar to the powerful `find` command line tool. Useful interfaces: figure it out.
+
+**Code:**
+```c
+#include <stdio.h>    
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <stdlib.h>    
+#include <dirent.h>    // opendir, readdir, closedir
+#include <string.h>    // strlen, strncpy, strncat
+#include <errno.h>
+#include <pwd.h>
+#include <grp.h>
+
+#define STRINGSIZE 1024
+
+void print_dir(char *pathname) {
+    DIR *dp;
+    struct stat sb;
+    if (stat(pathname, &sb) == -1){
+        // Error handling
+        fprintf(stderr, "stat: cannot stat '%s': %s\n", pathname,strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
+    if (S_ISDIR(sb.st_mode)) {
+        if ((dp = opendir(pathname)) == NULL){
+            // Error handling
+            fprintf(stderr, "opendir: cannot opendir '%s': %s\n", pathname,strerror(errno));
+            exit(EXIT_FAILURE);
+        }
+        struct dirent *d;
+        while ((d = readdir(dp)) != NULL) {
+            if(strcmp(d->d_name,".")==0) printf("%s\n",pathname);
+            else if (strcmp(d->d_name,"..")!=0) {
+                char path_string[STRINGSIZE] = "";
+                strcpy(path_string, pathname);
+                strcat(path_string,"/");
+                strcat(path_string,d->d_name);
+                print_dir(path_string);
+            }
+        }
+        closedir(dp);
+    } else {
+        printf("%s\n", pathname);
+    }
+}
+
+int main(int argc, char *argv[]) {
+    char * pathname = ".";
+
+    if(argc>2) {
+        // Error handling
+        fprintf(stderr,"Usage: %s [filename]", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
+    if (argc==2) pathname = argv[1];
+    print_dir(pathname);
     return 0;
 }
 ```
