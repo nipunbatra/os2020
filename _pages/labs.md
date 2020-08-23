@@ -32,7 +32,7 @@ description: "Questions and Solutions for all Labs held"
   * [Question 6](#question-6-1)
   * [Question 7](#question-7-1)
   * [Question 8](#question-8-1)
- - [Lab 3](#lab-3)
+- [Lab 3](#lab-3)
   * [Question 1](#question-1-2)
   * [Question 2](#question-2-2)
   * [Question 3](#question-3-2)
