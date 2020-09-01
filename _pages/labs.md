@@ -1079,7 +1079,7 @@ int main(int argc, char* argv[]){
 
 **Q:** Now run `pmap` on some of these processes, using various flags (like `-X`) to reveal many details about the process. What do you see? How many different entities make up a modern address space, as opposed to our simple conception of code/stack/heap?
 
-**A:** Beside stack and heap, we observe `Anonymous memory`: Memory not relating to any named object or file within the file system. You might also observe `vDSO` and `vsyscall` in the output depending on the program and the specific system you're using. They are both ways to accelerate system calls. You can read more about these ![here](https://stackoverflow.com/questions/19938324/what-are-vdso-and-vsyscall).  
+**A:** Beside stack and heap, we observe `Anonymous memory`: Memory not relating to any named object or file within the file system. You might also observe `vDSO` and `vsyscall` in the output depending on the program and the specific system you're using. They are both ways to accelerate system calls. You can read more about these [here](https://stackoverflow.com/questions/19938324/what-are-vdso-and-vsyscall).  
 
 ### Question 8
 
