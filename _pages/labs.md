@@ -37,6 +37,15 @@ description: "Questions and Solutions for all Labs held"
   * [Question 2](#question-2-2)
   * [Question 3](#question-3-2)
   * [Question 4](#question-4-2)
+- [Lab 4](#lab-4)
+  * [Question 1](#question-1-3)
+  * [Question 2](#question-2-3)
+  * [Question 3](#question-3-3)
+  * [Question 4](#question-4-3)
+  * [Question 5](#question-5-2)
+  * [Question 6](#question-6-2)
+  * [Question 7](#question-7-2)
+  * [Question 8](#question-8-2)
 
 # Lab 1
 ### Question 1
@@ -993,3 +1002,87 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 ```
+
+# Lab 4
+
+### Question 1
+
+**Q:** The first Linux tool you should check out is the very simple tool `free`. First, type `man free` and read its entire manual page; it's short, don't worry!
+
+**A:** Self-explanatory. Just run `man free`.
+
+### Question 2
+
+**Q:** Now, run `free`, perhaps using some of the arguments that might be useful (e.g., `-m`, to display memory totals in megabytes). How much memory is in your system? How much is free? Do these numbers match your intuition?
+
+**A:** Try different arguments with `free`. A very useful argument is `-h` which makes all the units in human readable format like MB, GB according to the size of the number. Try `free -h` to see for yourself. You will see two rows in the output, one will be for the physical RAM memory and the other will be for swap memory. Swap is a portion of memory which resides on your harddrive, usually as a separate partition and is used only when the RAM is full, so that the OS doesn't crash or malfunction as soon as the physical memory is filled and there is some leeway to recover from the excessive memory usage if need be. Meanwhile, when swap memory is being used, there is a significant slowdown in the operations as memory access from harddisks is trypically much slower that RAM even if you have an SSD. 
+
+### Question 3
+
+**Q:** Next, create a little program that uses a certain amount of memory, called `memory-user.c`. This program should take one commandline argument: the number of megabytes of memory it will use. When run, it should allocate an array, and constantly stream through the array, touching each entry. The program should do this indefinitely, or, perhaps, for a certain amount of time also specified at the command line.
+
+**Code:** 
+```c
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<unistd.h>
+
+
+int main(int argc, char* argv[]){
+    printf("Current Process ID = %d\n",getpid());
+    long long int size = ((long long int)atoi(argv[1]))*1024*1024; //in bytes
+    int* buffer = (int*)malloc(size);
+
+    //run the while loop for given amount of time.
+    time_t endwait, seconds, start;
+    seconds=atoi(argv[2]);
+    start=time(NULL);
+    endwait = start + seconds;
+
+    while(start<endwait){
+        printf(".");
+        fflush(stdout);
+        for(long long int i=0; i<size/sizeof(int); i++){
+            buffer[i] = i;
+        }
+        start = time(NULL);
+    }
+    printf("(done)\n");
+    return 0;
+}
+```
+
+**Usage:** After compiling this program, just run with two arguments. The first argument is the number of MB to reserve and the second is the minimum number of seconds to run the program for. 
+
+**Additional:** Find out why you need to run through the array. What happens if we don't do so?
+
+### Question 4
+
+**Q:** Now, while running your `memory-user` program, also (in a different terminal window, but on the same machine) run the `free` tool. How do the memory usage totals change when your program is running? How about when you kill the `memory-user` program? Do the numbers match your expectations? Try this for different amounts of memory usage. What happens when you use really large amounts of memory?
+
+**A:** Keep a watch on the memory using `watch -n 1 free -m`. When the `memory-user` program is run, you see that the amount of MB you gave as argument gets added to the statistics shown by `free`. When the program is killed, the used memory decreases by the amount of MB you gave as argument. Also, when a large amount of memory is entered, we observe that the swap is being filled after the RAM is almost full.
+
+### Question 5
+
+**Q:** Let's try one more tool, known as `pmap`. Spend some time, and read the `pmap` manual page in detail.
+
+**A:** Self-explanatory. Just run `man pmap` and read the manual.
+
+### Question 6
+
+**Q:** To use `pmap`, you have to know the **process ID** of the process you're interested in. Thus, first run `ps auxw` to see a list of all processes; then, pick an interesting one, such as a browser. You can also use your `memory-user` program in this case (indeed, you can even have that program call `getpid()` and print out its PID for your convenience).
+
+**A:** Use the pid of `memory-user` or any other process and check its memory map using `pmap -q <PID>`. 
+
+### Question 7
+
+**Q:** Now run `pmap` on some of these processes, using various flags (like `-X`) to reveal many details about the process. What do you see? How many different entities make up a modern address space, as opposed to our simple conception of code/stack/heap?
+
+**A:** Beside stack and heap, we observe `Anonymous memory`: Memory not relating to any named object or file within the file system. You might also observe `vDSO` and `vsyscall` in the output depending on the program and the specific system you're using. They are both ways to accelerate system calls. You can read more about these [here](https://stackoverflow.com/questions/19938324/what-are-vdso-and-vsyscall).  
+
+### Question 8
+
+**Q:** Finally, let's run `pmap` on your `memory-user` program, with different amounts of used memory. What do you see here? Does the output from `pmap` match your expectations?
+
+**A:** On execution of `memory-user`, as we increase heap allocation, the same is visible in the output of `pmap`. 
