@@ -26,5 +26,7 @@ description: "Education is what remains after one has forgotten what one has lea
 |  13 | 26 Aug | [Zoom Meeting (Multilevel Paging)](https://drive.google.com/file/d/1DiQEygEkhYbt2qCymtryqW25O3aIgL3f/view?usp=sharing) | | |
 |  14 | 29 Aug | [Zoom Meeting (Concurrency)](https://drive.google.com/file/d/1O0jrHMSO2cij46uz9tn1Iy39c_n09439/view?usp=sharing) | | |
 |15| 9 Sep| [Locks](../lectures/os19-memory-management-segmentation-2.pdf) [, Zoom meeting](https://drive.google.com/file/d/1yZCUEsuK83Nx9nSHmsuwqJuXa-po-MPV/view?usp=sharing)|||
-|16| 10 Sep| [Advanced Locks, ](../lectures/advanced-locks.pdf) [Zoom meeting]()|||
+|16| 10 Sep| [Doubt session](../lectures/advanced-locks.pdf) [Zoom meeting]()|||
+| | 11 Sep|[Advanced Locks - Queue based](../lectures/advanced-locks.pdf) [Zoom meeting] (https://drive.google.com/file/d/1QJJo9QF8pb9GcP-_qltXeiCkTRiXU-X6/view?usp=sharing)|||
+
 
