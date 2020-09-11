@@ -27,7 +27,7 @@ description: "Education is what remains after one has forgotten what one has lea
 |14|28 Aug| [Swapping, ](../lectures/os19-memory-management-swapping.pdf) [Zoom meeting](https://drive.google.com/file/d/1BqrUyo7T1Ie8-A4hu-oklK2ra_JxlRi4/view?usp=sharing)|||
 |  15 | 29 Aug | [Concurrency, ](../lectures/os19-concurrency.pdf)[Zoom Meeting (Concurrency)](https://drive.google.com/file/d/1O0jrHMSO2cij46uz9tn1Iy39c_n09439/view?usp=sharing) | | |
 |16| 9 Sep| [Locks](../lectures/os19-concurrency-2.pdf) [, Zoom meeting](https://drive.google.com/file/d/1yZCUEsuK83Nx9nSHmsuwqJuXa-po-MPV/view?usp=sharing)|||
-|17| 10 Sep| [Doubt session]() [Zoom meeting]()https://drive.google.com/file/d/1ko_8Y9Iv4zwQfKwns-UNZ6krMuERPrr2/view?usp=sharing|||
+|17| 10 Sep| [Doubt session]() [Zoom meeting](https://drive.google.com/file/d/1ko_8Y9Iv4zwQfKwns-UNZ6krMuERPrr2/view?usp=sharing)|||
 |18 | 11 Sep|[Advanced Locks - Queue based](../lectures/advanced-locks.pdf) [Zoom meeting](https://drive.google.com/file/d/1QJJo9QF8pb9GcP-_qltXeiCkTRiXU-X6/view?usp=sharing)|||
 
 
