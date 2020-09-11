@@ -22,11 +22,12 @@ description: "Education is what remains after one has forgotten what one has lea
 |  8 | 19 Aug | [Segmentation](../lectures/os19-memory-management-segmentation.pdf), [Segmentation 2, ](../lectures/os19-memory-management-segmentation-2.pdf) [Video 1](https://www.youtube.com/watch?v=x4L4lgY3Clg&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=12) (32 mins onwards) [Video 3](https://www.youtube.com/watch?v=powd2SIH3Hk&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=13) (till 27 mins)|  |  |
 |  10 | 21 Aug | [Paging1, ](../lectures/os19-memory-management-segmentation-2.pdf) [Video, ](https://www.youtube.com/watch?v=powd2SIH3Hk&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=13) (27 mins onwards) [Paging2, ](../lectures/os19-memory-management-paging-tlb.pdf) [Video](https://www.youtube.com/watch?v=-R0bx_N_QjE&list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5&index=14) (first 33 mins) |  |  |
 |  11 | 22 Aug | [Zoom Meeting (Paging)](https://drive.google.com/file/d/15I3fQZYBfODeD4L-ghTYXWvo50FXDXze/view?usp=sharing) |  |  |
-|  12 | 25 Aug | [Zoom Meeting (Multilevel Paging)](https://drive.google.com/file/d/1sabzSPUbFMDWTWqTeHyZTAhRqp8GPjuv/view?usp=sharing) | | |
+|  12 | 25 Aug | [Advanced paging](../lectures/os19-memory-management-paging-advanced.pdf)[Zoom Meeting (Multilevel Paging)](https://drive.google.com/file/d/1sabzSPUbFMDWTWqTeHyZTAhRqp8GPjuv/view?usp=sharing) | | |
 |  13 | 26 Aug | [Zoom Meeting (Multilevel Paging)](https://drive.google.com/file/d/1DiQEygEkhYbt2qCymtryqW25O3aIgL3f/view?usp=sharing) | | |
-|  14 | 29 Aug | [Zoom Meeting (Concurrency)](https://drive.google.com/file/d/1O0jrHMSO2cij46uz9tn1Iy39c_n09439/view?usp=sharing) | | |
-|15| 9 Sep| [Locks](../lectures/os19-memory-management-segmentation-2.pdf) [, Zoom meeting](https://drive.google.com/file/d/1yZCUEsuK83Nx9nSHmsuwqJuXa-po-MPV/view?usp=sharing)|||
-|16| 10 Sep| [Doubt session](../lectures/advanced-locks.pdf) [Zoom meeting]()|||
-| | 11 Sep|[Advanced Locks - Queue based](../lectures/advanced-locks.pdf) [Zoom meeting] (https://drive.google.com/file/d/1QJJo9QF8pb9GcP-_qltXeiCkTRiXU-X6/view?usp=sharing)|||
+|14|28 Aug| [Swapping, ](../lectures/os19-memory-management-swapping.pdf) [Zoom meeting](https://drive.google.com/file/d/1BqrUyo7T1Ie8-A4hu-oklK2ra_JxlRi4/view?usp=sharing)|||
+|  15 | 29 Aug | [Concurrency, ](../lectures/os19-concurrency.pdf)[Zoom Meeting (Concurrency)](https://drive.google.com/file/d/1O0jrHMSO2cij46uz9tn1Iy39c_n09439/view?usp=sharing) | | |
+|16| 9 Sep| [Locks](../lectures/os19-concurrency-2.pdf) [, Zoom meeting](https://drive.google.com/file/d/1yZCUEsuK83Nx9nSHmsuwqJuXa-po-MPV/view?usp=sharing)|||
+|17| 10 Sep| [Doubt session]() [Zoom meeting]()https://drive.google.com/file/d/1ko_8Y9Iv4zwQfKwns-UNZ6krMuERPrr2/view?usp=sharing|||
+|18 | 11 Sep|[Advanced Locks - Queue based](../lectures/advanced-locks.pdf) [Zoom meeting] (https://drive.google.com/file/d/1QJJo9QF8pb9GcP-_qltXeiCkTRiXU-X6/view?usp=sharing)|||
 
 
