@@ -30,5 +30,6 @@ description: "Education is what remains after one has forgotten what one has lea
 |17](../lectures/os19-concurrency-2.pdf) [, Zoom meeting](https://drive.google.com/file/d/16fm5pU4vIfLUoHbOO7Zhdk6PnrUa8gG1/view?usp=sharing)|||
 |18| 10 Sep| [Doubt session]() [Zoom meeting](https://drive.google.com/file/d/1ko_8Y9Iv4zwQfKwns-UNZ6krMuERPrr2/view?usp=sharing)|||
 |19 | 11 Sep|[Advanced Locks - Queue based](../lectures/advanced-locks.pdf) [Zoom meeting](https://drive.google.com/file/d/1QJJo9QF8pb9GcP-_qltXeiCkTRiXU-X6/view?usp=sharing)|||
+|20, 21| 12 Sep| [Condition Variables 1, ](../lectures/os19-cv.pdf)[Condition Variables 2, ](os19-concurrency-cv-2.pdf) [Zoom meeting]() ||| 
 
 
