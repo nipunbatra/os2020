@@ -1,0 +1,39 @@
+\documentclass[]{article}
+\usepackage{hyperref}
+
+%opening
+\title{OS course Fall 2018\\Lab 1}
+\date{}
+
+\begin{document}
+
+\maketitle
+\section{Unix commands}
+\begin{enumerate}
+	\item Fire the terminal and run the \texttt{ps} command on the terminal without any arguments. What output do you see? Where is this program being run?
+	\item Fire up a program. Can you see it using \texttt{ps}?
+	\item Look at the manual for \texttt{ps} using \texttt{man ps}. Try out the command with all the flags and note the output in each case.
+	\item How can you get details of \textbf{all} the running processes?
+	\item Which order are the above processes sorted by? Can you sort them using same criteria but opposite order?
+	\item Can you sort them using some other criteria? i.e. by CPU usage?
+	\item Use \texttt{ps} to find unique users?
+	\item Find number of process per user.
+	\item Find process by PID
+	\item Find its parent
+	\item Find details of multiple processes using PID list
+	\item Use \texttt{-o} to output PID, PPID
+	\item Find total running time of all processes
+	\item Sort processes in decreasing order of running time
+	\item Use \texttt{watch} utility to perform real-time monitoring over ps\\
+	\texttt{watch -n 1 `ps -eo pid,ppid,cmd,\%mem,\%cpu --sort=-\%mem | head'}
+	\item Change the monitoring period of \texttt{watch}
+\end{enumerate}
+
+\section{Process API}
+In this part of the lab, we would be running the 8 programs in the homework section of \href{http://pages.cs.wisc.edu/~remzi/OSTEP/cpu-api.pdf}{Chapter 5} from the textbook.
+
+
+
+
+
+\end{document}
