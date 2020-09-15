@@ -31,5 +31,11 @@ description: "Education is what remains after one has forgotten what one has lea
 |18| 10 Sep| [Doubt session]() [Zoom meeting](https://drive.google.com/file/d/1ko_8Y9Iv4zwQfKwns-UNZ6krMuERPrr2/view?usp=sharing)|||
 |19 | 11 Sep|[Advanced Locks - Queue based](../lectures/advanced-locks.pdf) [Zoom meeting](https://drive.google.com/file/d/1QJJo9QF8pb9GcP-_qltXeiCkTRiXU-X6/view?usp=sharing)|||
 |20, 21| 12 Sep| [Condition Variables 1, ](../lectures/os19-cv.pdf)[Condition Variables 2, ](os19-concurrency-cv-2.pdf) [Zoom meeting](https://drive.google.com/file/d/12iuHiOsTs_RXShOGu56qYLXNwB4-hxkN/view?usp=sharing) ||| 
-
-
+|22| 15 Sep| [Condition Variables, Bounded buffer](../lectures/os19-concurrency-cv-2.pdf) [Zoom meeting](https://drive.google.com/file/d/1MQ-MpOUUtyRHdIqILWfIHw4rXYPjxj2J/view?usp=sharing)|||
+|23| 16 Sep|[Bounder buffer, Semaphores](../lectures/os19-concurrency-cv-semaphores.pdf) [Zoom meeting]()|||
+|24| 18 Sep| [Semaphores, deadlock](../lectures/os19-semaphores-deadlocks.pdf) [Zoom meeting]()|||
+|25| 19 Sep| [Common concurrency problems](../lectures/os19-semaphores-deadlocks-2.pdf) [Zoom meeting]()|||
+|26| 22 Sep| [Bugs](../lectures/os19-bugs.pdf) [Zoom meeting]()|||
+|27| 23 Sep| [IO+HDD](../lectures/os19-io-disk.pdf) [Zoom meeting]()|||
+|28| 25 Sep| [HDD+Raid](../lectures/os19-raid-1.pdf) |||
+|29| 26 Sep| [Raid 2] |||
