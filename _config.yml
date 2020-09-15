@@ -90,8 +90,7 @@ highlighter: rogue
 
 # Includes & excludes
 include: ['_pages']
-exclude: [vendor]
-
+exclude: [vendor, 'labs']
 # Plug-ins
 plugins:
     - jekyll-email-protect
