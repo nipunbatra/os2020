@@ -5,7 +5,7 @@ title: Zine
 description: "Repository of all the zines and cs stories made by students."
 ---
 
-{% include zine_holder.html image_path="../Zines/booting.png" title="Booting" description="Arpit Patel & Lovepreet Singh" pdf_path="../Zines/booting.pdf" %}
+{% include zine_holder.html image_path="../Zines/booting.png" title="Booting" description="Arpit Patel & Lovepreet Singh" pdf_path="../Zines/booting.pdf" video_path="https://drive.google.com/file/d/1ecfxb93eQiO1A13lTeZ8tm6VHBX3zaaJ/view?usp=sharing" %}
 {% include zine_holder.html image_path="../Zines/CFS.png" title="Completely Fair Scheduler" description="Preet Patel &  Ribhu Vajpeyi" pdf_path="../Zines/CFS.pdf" %}
 {% include zine_holder.html image_path="../Zines/Checksum.png" title="Checksum" description="Anupam Kumar & Chiluveru Preeti" pdf_path="../Zines/Checksum.pdf" %}
 {% include zine_holder.html image_path="../Zines/chmod.png" title="chmod" description="Pranshu Kumar Gond & Sagar Bisen" pdf_path="../Zines/chmod.pdf" %}
