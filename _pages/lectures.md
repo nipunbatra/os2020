@@ -34,8 +34,7 @@ description: "Education is what remains after one has forgotten what one has lea
 |22| 15 Sep| [Condition Variables, Bounded buffer](../lectures/os19-concurrency-cv-2.pdf) [Zoom meeting](https://drive.google.com/file/d/1MQ-MpOUUtyRHdIqILWfIHw4rXYPjxj2J/view?usp=sharing)|||
 |23| 16 Sep|[Bounder buffer, Semaphores](../lectures/os19-concurrency-cv-semaphores.pdf) [Zoom meeting](https://drive.google.com/file/d/1OB7HQPg1z-Nesj2Fc91U3jLLP-TqK7A-/view?usp=sharing)|||
 |24| 18 Sep| [Semaphores, deadlock](../lectures/os19-semaphores-deadlocks.pdf) [Zoom meeting](https://drive.google.com/file/d/1iKePVesQZttXjOE0_l2UV-PkENNOufSv/view?usp=sharing)|||
-|25| 19 Sep| [Common concurrency problems](../lectures/os19-semaphores-deadlocks-2.pdf) [Zoom meeting]()|||
-|26| 22 Sep| [Bugs](../lectures/os19-bugs.pdf) [Zoom meeting](https://drive.google.com/file/d/18V3DIhd2Fc5FQewC7BMdNZopgKm-3L5V/view?usp=sharing)|||
-|27| 23 Sep| [IO+HDD](../lectures/os19-io-disk.pdf) [Zoom meeting]()|||
-|28| 25 Sep| [HDD+Raid](../lectures/os19-raid-1.pdf) |||
+|25| 22 Sep| [Common concurrency problems, ](../lectures/os19-semaphores-deadlocks-2.pdf) [Bugs](../lectures/os19-bugs.pdf) [Zoom meeting](https://drive.google.com/file/d/18V3DIhd2Fc5FQewC7BMdNZopgKm-3L5V/view?usp=sharing)|||
+|26| 23 Sep| [IO+HDD](../lectures/os19-io-disk.pdf) [Zoom meeting](https://drive.google.com/file/d/1N8PTjyqZph3XDaX55APGYu8y-2pOMQJL/view?usp=sharing)|||
+|27, 28| 25 Sep| [HDD+Raid](../lectures/os19-raid-1.pdf) [Zoom 1, ](https://drive.google.com/file/d/1HGtL5z2ulVq6DsUY6RMeoCWcj3KBD_Hd/view?usp=sharing) [Zoom 2 ](https://drive.google.com/file/d/1HGtL5z2ulVq6DsUY6RMeoCWcj3KBD_Hd/view?usp=sharing)|||
 |29| 26 Sep| [Raid 2] |||
