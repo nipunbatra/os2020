@@ -37,5 +37,5 @@ description: "Education is what remains after one has forgotten what one has lea
 |25| 22 Sep| [Common concurrency problems, ](../lectures/os19-semaphores-deadlocks-2.pdf) [Bugs](../lectures/os19-bugs.pdf) [Zoom meeting](https://drive.google.com/file/d/18V3DIhd2Fc5FQewC7BMdNZopgKm-3L5V/view?usp=sharing)|||
 |26| 23 Sep| [IO+HDD](../lectures/os19-io-disk.pdf) [Zoom meeting](https://drive.google.com/file/d/1N8PTjyqZph3XDaX55APGYu8y-2pOMQJL/view?usp=sharing)|||
 |27| 25 Sep| [IO+HDD](../lectures/os19-io-disk.pdf) [Zoom meeting](https://drive.google.com/file/d/1dQwBIAIRhnXkPrrwvcUbxVQx5sq2vqmz/view?usp=sharing)|||
-|28, 29| 26 Sep| [HDD+Raid](../lectures/os19-raid-1.pdf) [Zoom 1, ](https://drive.google.com/file/d/1HGtL5z2ulVq6DsUY6RMeoCWcj3KBD_Hd/view?usp=sharing) [Zoom 2 ](https://drive.google.com/file/d/1HGtL5z2ulVq6DsUY6RMeoCWcj3KBD_Hd/view?usp=sharing)|||
-|29| 26 Sep| [Raid 2] |||
+|28, 29| 26 Sep| [HDD+Raid](../lectures/os19-raid-1.pdf) [Zoom 1, ](https://drive.google.com/file/d/1HGtL5z2ulVq6DsUY6RMeoCWcj3KBD_Hd/view?usp=sharing) [Zoom 2 ](https://drive.google.com/file/d/10J11jDNKx4iyWgW8LDLqaR5epfnHbl9k/view?usp=sharing)|||
+|30| 29 Sep| [Raid 2](../lectures/raid-2.pdf) [Zoom](https://drive.google.com/file/d/1w5BzH-nV9SFpdStYcsl4odIfx27pbQsg/view?usp=sharing) |||
