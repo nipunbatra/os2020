@@ -1,0 +1,10 @@
+---
+title: "Feedback"
+include-in-header:
+  text: |
+    <meta http-equiv="refresh" content="0; url=../feedback.html">
+    <link rel="canonical" href="https://nipunbatra.github.io/os2020/feedback.html">
+    <meta name="robots" content="noindex">
+---
+
+This page has moved: [go to Feedback](/feedback.html).

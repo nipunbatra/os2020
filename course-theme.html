@@ -1,0 +1,36 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<script>
+// Light and dark: follow the system unless the switch has saved a choice. Runs before the page paints.
+(() => {
+  const root = document.documentElement, key = 'os2020-theme';
+  const mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : { matches: false };
+  const get = () => { try { return localStorage.getItem(key); } catch { return null; } };
+  const set = v => { try { v ? localStorage.setItem(key, v) : localStorage.removeItem(key); } catch {} };
+  function apply() {
+    const t = get();
+    if (t === 'light' || t === 'dark') root.setAttribute('data-theme', t); else root.removeAttribute('data-theme');
+    const dark = t === 'light' || t === 'dark' ? t === 'dark' : mq.matches;
+    root.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+    document.querySelectorAll('.mode').forEach(b => {
+      b.setAttribute('aria-checked', String(dark));
+      b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      b.title = b.getAttribute('aria-label');
+    });
+    return dark;
+  }
+  apply();
+  if (mq.addEventListener) mq.addEventListener('change', apply);
+  window.addEventListener('storage', e => { if (e.key === key) apply(); });
+  document.addEventListener('DOMContentLoaded', () => {
+    apply();
+    document.querySelectorAll('.mode').forEach(b => b.addEventListener('click', () => {
+      const dark = b.getAttribute('aria-checked') !== 'true';
+      // A choice that matches the system clears the override, so the site keeps following the system.
+      set(dark === mq.matches ? null : (dark ? 'dark' : 'light'));
+      apply();
+    }));
+  });
+})();
+</script>

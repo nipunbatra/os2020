@@ -1,0 +1,10 @@
+---
+title: "Labs"
+include-in-header:
+  text: |
+    <meta http-equiv="refresh" content="0; url=../labs.html">
+    <link rel="canonical" href="https://nipunbatra.github.io/os2020/labs.html">
+    <meta name="robots" content="noindex">
+---
+
+This page has moved: [go to Labs](/labs.html).

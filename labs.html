@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Labs – CS 301 · Operating Systems 2020</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="./favicon.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-73aec02b927eff4e312ab57925eacfa1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<script>
+// Light and dark: follow the system unless the switch has saved a choice. Runs before the page paints.
+(() => {
+  const root = document.documentElement, key = 'os2020-theme';
+  const mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : { matches: false };
+  const get = () => { try { return localStorage.getItem(key); } catch { return null; } };
+  const set = v => { try { v ? localStorage.setItem(key, v) : localStorage.removeItem(key); } catch {} };
+  function apply() {
+    const t = get();
+    if (t === 'light' || t === 'dark') root.setAttribute('data-theme', t); else root.removeAttribute('data-theme');
+    const dark = t === 'light' || t === 'dark' ? t === 'dark' : mq.matches;
+    root.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+    document.querySelectorAll('.mode').forEach(b => {
+      b.setAttribute('aria-checked', String(dark));
+      b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      b.title = b.getAttribute('aria-label');
+    });
+    return dark;
+  }
+  apply();
+  if (mq.addEventListener) mq.addEventListener('change', apply);
+  window.addEventListener('storage', e => { if (e.key === key) apply(); });
+  document.addEventListener('DOMContentLoaded', () => {
+    apply();
+    document.querySelectorAll('.mode').forEach(b => b.addEventListener('click', () => {
+      const dark = b.getAttribute('aria-checked') !== 'true';
+      // A choice that matches the system clears the override, so the site keeps following the system.
+      set(dark === mq.matches ? null : (dark ? 'dark' : 'light'));
+      apply();
+    }));
+  });
+})();
+</script>
+
+
+</head>
+
+<body class="dl fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+<aside class="rail">
+  <a class="code" href="./index.html" data-page="index.html">CS 301</a>
+  <span class="inst">IIT Gandhinagar</span>
+  <div class="appearance"><button type="button" class="mode" role="switch" aria-checked="false" aria-label="Switch to dark mode"><span class="sky"></span><span class="stars"><b style="left:9px;top:6px"></b><b style="left:15px;top:15px"></b><b style="left:5px;top:17px"></b></span><span class="knob"></span></button></div>
+  <nav aria-label="Course">
+    <a href="./index.html" data-page="index.html">Home</a>
+    <a href="./schedule.html" data-page="schedule.html">Lectures</a>
+    <a href="./labs.html" data-page="labs.html">Labs</a>
+    <a href="./zine.html" data-page="zine.html">Zines</a>
+    <a href="./assessment.html" data-page="assessment.html">Assessment</a>
+    <a href="./feedback.html" data-page="feedback.html">Feedback</a>
+  </nav>
+</aside>
+<script>document.body.prepend(document.currentScript.previousElementSibling);</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Labs</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Questions and solutions for the labs, held on Thursdays, 3:00–5:00 pm. The handout for the first lab is <a href="labs/lab-1.pdf">Process commands (top, ps)</a> (PDF). Lab code is in the <a href="https://github.com/nipunbatra/os2020/tree/master/labs"><code>labs</code> folder on GitHub</a>.</p>
+<p><a href="#lab-1">Lab 1</a> · <a href="#lab-2">Lab 2</a> · <a href="#lab-3">Lab 3</a> · <a href="#lab-4">Lab 4</a></p>
+<section id="lab-1" class="level2">
+<h2 data-anchor-id="lab-1">Lab 1</h2>
+<section id="question-1" class="level4">
+<h4 data-anchor-id="question-1">Question 1</h4>
+<p><strong>Q:</strong> Fire the terminal and run the <code>ps</code> command on the terminal without any arguments. What output do you see? Where is this program being run?</p>
+<p><strong>A:</strong> Reports a snapshot of the current processes. By default it returns the Process ID, the terminal, the duration, and command that is running. The TTY corresponding to ps gives the terminal in which this ps command is running.</p>
+</section>
+<section id="question-2" class="level4">
+<h4 data-anchor-id="question-2">Question 2</h4>
+<p><strong>Q:</strong> Fire up a program. Can you see it using <code>ps</code>?</p>
+<p><strong>A:</strong> No.&nbsp;To list all programs run by the user run <code>ps -e</code> instead of <code>ps</code>.</p>
+</section>
+<section id="question-3" class="level4">
+<h4 data-anchor-id="question-3">Question 3</h4>
+<p><strong>Q:</strong> Look at the manual for ps using man ps. Try out the command with all the flags and note the output in each case.</p>
+<p><strong>A:</strong> Run <code>man ps</code> in your terminal</p>
+</section>
+<section id="question-4" class="level4">
+<h4 data-anchor-id="question-4">Question 4</h4>
+<p><strong>Q:</strong> How can you get details of all the running processes?</p>
+<p><strong>A:</strong> Run <code>ps -e -l</code> in your terminal. The <code>-e</code> option displays all processes running. The <code>-l</code> option is for displaying the information in long format i.e.&nbsp;to display more information for each process than the plain <code>ps</code> command.</p>
+</section>
+<section id="question-5" class="level4">
+<h4 data-anchor-id="question-5">Question 5</h4>
+<p><strong>Q:</strong> Which order are the above processes sorted by? Can you sort them using same criteria but opposite order?</p>
+<p><strong>A:</strong> They processes are sorted by the process ID by default. Inorder to reverse sort by process ID use <code>ps --sort -pid -e</code>.</p>
+</section>
+<section id="question-6" class="level4">
+<h4 data-anchor-id="question-6">Question 6</h4>
+<p><strong>Q:</strong> Can you sort them using some other criteria? i.e.&nbsp;by CPU usage?</p>
+<p><strong>A:</strong> Use <code>ps --sort=-%cpu -au</code>. <code>-au</code> gives all the information about the processes run by the current user.</p>
+</section>
+<section id="question-7" class="level4">
+<h4 data-anchor-id="question-7">Question 7</h4>
+<p><strong>Q:</strong> Use ps to find unique users?</p>
+<p><strong>A:</strong> Run <code>ps -eo user --no-header | sort -u</code>.</p>
+</section>
+<section id="question-8" class="level4">
+<h4 data-anchor-id="question-8">Question 8</h4>
+<p><strong>Q:</strong> Find number of processes per user.</p>
+<p><strong>A:</strong> Run <code>ps -eo user --no-header | sort | uniq -c</code>.</p>
+</section>
+<section id="question-9" class="level4">
+<h4 data-anchor-id="question-9">Question 9</h4>
+<p><strong>Q:</strong> Find process by PID.</p>
+<p><strong>A:</strong> Run <code>ps &lt;PID&gt;</code>. If the process you want to see has PID 1234, run <code>ps 1243</code> to find its parent.</p>
+</section>
+<section id="question-10" class="level4">
+<h4 data-anchor-id="question-10">Question 10</h4>
+<p><strong>Q:</strong> Find its parent.</p>
+<p><strong>A:</strong> Run <code>ps -o ppid= -p &lt;PID&gt;</code>. If the child has PID 1234, run <code>ps -o ppid= -p 1234</code>.</p>
+</section>
+<section id="question-11" class="level4">
+<h4 data-anchor-id="question-11">Question 11</h4>
+<p><strong>Q:</strong> Find details of multiple processes using PID list.</p>
+<p><strong>A:</strong> If you want to find information about PIDs 123, 234 and 456 run <code>ps =p 123,234,456</code>.</p>
+</section>
+<section id="question-12" class="level4">
+<h4 data-anchor-id="question-12">Question 12</h4>
+<p><strong>Q:</strong> Use <code>-o</code> to output PID, PPID.</p>
+<p><strong>A:</strong> Run <code>ps -o pid,ppid</code>.</p>
+</section>
+<section id="question-13" class="level4">
+<h4 data-anchor-id="question-13">Question 13</h4>
+<p><strong>Q:</strong> Find total running time of all processes.</p>
+<p><strong>A:</strong> For running time of single process (suppose PID is 1) run <code>ps -p -1 -o etime</code>. For running time of all processes run <code>ps -eo user, label, etime</code>.</p>
+</section>
+<section id="question-14" class="level4">
+<h4 data-anchor-id="question-14">Question 14</h4>
+<p><strong>Q:</strong> Sort processes in decreasing order of running time.</p>
+<p><strong>A:</strong> Run <code>ps -eo user, label, etime --sort=-etime</code>.</p>
+</section>
+<section id="question-15" class="level4">
+<h4 data-anchor-id="question-15">Question 15</h4>
+<p><strong>Q:</strong> Use <code>watch</code> utility to perform real-time monitoring over <code>ps</code>.</p>
+<p><strong>A:</strong> Run <code>watch -n 1 'ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head'</code>. <code>-n 1</code> specifies the refresh rate to be 1 second. You can set it to decimals like 0.1 seconds (<code>-n 0.1</code>) too.</p>
+</section>
+<section id="question-16" class="level4">
+<h4 data-anchor-id="question-16">Question 16</h4>
+<p><strong>Q:</strong> Change the monitoring period of watch</p>
+<p><strong>A:</strong> Run <code>watch -n 0.1 'ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head'</code>. <code>-n 0.1</code> specifies the monitoring frequency to be 0.1 seconds.</p>
+</section>
+</section>
+<section id="lab-2" class="level2">
+<h2 data-anchor-id="lab-2">Lab 2</h2>
+<section id="question-1-1" class="level4">
+<h4 data-anchor-id="question-1-1">Question 1</h4>
+<p><strong>Q:</strong> Write a program that calls <code>fork()</code>. Before calling <code>fork()</code>, have the main process access a variable (e.g., <code>x</code>) and set its value to something (e.g., <code>100</code>). What value is the variable in the child process? What happens to the variable when both the child and parent change the value of x?</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> myVariable <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"hello world (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Value of myVariable before fork is </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> myVariable<span class="op">);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit`</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child (new process)</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am child (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Value of myVariable from child is </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> myVariable<span class="op">);</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Changing the value of myVariable in child to 200</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        myVariable <span class="op">=</span> <span class="dv">200</span><span class="op">;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"The changed value of myVariable from child is </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> myVariable<span class="op">);</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am parent of </span><span class="sc">%d</span><span class="st"> (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>               rc<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Value of myVariable from parent after fork is </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> myVariable<span class="op">);</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Changing the value of myVariable in parent to 300</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        myVariable <span class="op">=</span> <span class="dv">300</span><span class="op">;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"The changed value of myVariable from parent is </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> myVariable<span class="op">);</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output:</strong></p>
+<pre><code>hello world (pid:529)
+Value of myVariable before fork is 100
+hello, I am parent of 530 (pid:529)
+Value of myVariable from parent after fork is 100
+Changing the value of myVariable in parent to 300
+The changed value of myVariable from parent is 300
+hello, I am child (pid:530)
+Value of myVariable from child is 100
+Changing the value of myVariable in child to 200
+The changed value of myVariable from child is 200</code></pre>
+<p><strong>Observation:</strong> The child and parent have separate copies of the variable and changing one doesn’t affect the other.</p>
+</section>
+<section id="question-2-1" class="level4">
+<h4 data-anchor-id="question-2-1">Question 2</h4>
+<p><strong>Q:</strong> Write a program that opens a file (with the <code>open()</code> system call) and then calls <code>fork()</code> to create a new process. Can both the child and parent access the file descriptor returned by <code>open()</code>? What happens when they are writing to the file concurrently, i.e., at the same time?</p>
+<p><strong>Code for simultaneous reading:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;errno.h&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"hello world (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> fd <span class="op">=</span> open<span class="op">(</span><span class="st">"q2.c"</span><span class="op">,</span> O_RDONLY<span class="op">);</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>fd <span class="op">==</span> <span class="op">-</span><span class="dv">1</span> <span class="op">){</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Unable to open the file</span><span class="sc">\n</span><span class="st"> exiting....</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit`</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child (new process)</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am child (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> myChar<span class="op">;</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        read<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>myChar<span class="op">,</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Reading a character from the file from child and printing it</span><span class="sc">\n%c\n</span><span class="st">"</span><span class="op">,</span> myChar<span class="op">);</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        wait<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am parent of </span><span class="sc">%d</span><span class="st"> (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>               rc<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> myChar<span class="op">;</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        read<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>myChar<span class="op">,</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Reading a character from the file from parent and printing it</span><span class="sc">\n%c\n</span><span class="st">"</span><span class="op">,</span> myChar<span class="op">);</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output:</strong></p>
+<pre><code>hello world (pid:754)
+hello, I am child (pid:755)
+Reading a character from the file from child and printing it
+#
+hello, I am parent of 755 (pid:754)
+Reading a character from the file from parent and printing it
+i</code></pre>
+<p><strong>Observation:</strong> Both share the same descriptor.</p>
+<p><strong>Code for simultaneous writing:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;errno.h&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"hello world (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> fd <span class="op">=</span> open<span class="op">(</span><span class="st">"myFile.txt"</span><span class="op">,</span> O_CREAT<span class="op">|</span>O_RDWR<span class="op">);</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>fd <span class="op">==</span> <span class="op">-</span><span class="dv">1</span> <span class="op">){</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Unable to open the file</span><span class="sc">\n</span><span class="st"> exiting....</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit`</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child (new process)</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am child (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> myChar<span class="op">=</span><span class="ch">'a'</span><span class="op">;</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        write<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>myChar<span class="op">,</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"writing a character to the file from child</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>        <span class="co">//wait(NULL);</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am parent of </span><span class="sc">%d</span><span class="st"> (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>               rc<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> myChar<span class="op">=</span><span class="ch">'b'</span><span class="op">;</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        write<span class="op">(</span>fd<span class="op">,</span> <span class="op">&amp;</span>myChar<span class="op">,</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"writing a character to the file from parent</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Observation:</strong> Both can write to the same file, but their outputs in file will appear in some random order.</p>
+</section>
+<section id="question-3-1" class="level4">
+<h4 data-anchor-id="question-3-1">Question 3</h4>
+<p><strong>Q:</strong> Write another program using <code>fork()</code>. The child process should print “hello”; the parent process should print “goodbye”. You should try to ensure that the child process always prints first; can you do this <em>without</em> calling <strong>wait()</strong> in the parent?</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> myVariable <span class="op">=</span> <span class="dv">100</span><span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"hello world (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit`</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child (new process)</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am child (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">100000</span><span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            <span class="op">;</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"goodbye, I am parent of </span><span class="sc">%d</span><span class="st"> (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>               rc<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output:</strong></p>
+<pre><code>hello world (pid:994)
+hello, I am child (pid:995)
+goodbye, I am parent of 995 (pid:994)</code></pre>
+<p><strong>Observation:</strong> We can use <code>for</code> loop to implement waiting for some time. Alternatively you could use <code>sleep()</code>.</p>
+</section>
+<section id="question-4-1" class="level4">
+<h4 data-anchor-id="question-4-1">Question 4</h4>
+<p><strong>Q:</strong> Write a program that calls <code>fork()</code> and then calls some form of <code>exec()</code> to run the program <code>/bin/ls</code>. See if you can try all of the variants of <code>exec()</code>, including (on Linux) <code>execl()</code>, <code>execle()</code>, <code>execlp()</code>, <code>execv()</code>, <code>execvp()</code>, and <code>execvpe()</code>. Why do you think there are so many variants of the same basic call?</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span><span class="pp"> </span><span class="co">//this header is important</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"hello world (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child (new process)</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am child (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">//     int execl(const char *pathname, const char *arg, ...</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">//                    /* (char  *) NULL */);</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">//    int execlp(const char *file, const char *arg, ...</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>        <span class="co">//                    /* (char  *) NULL */);</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">//    int execle(const char *pathname, const char *arg, ...</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">//                    /*, (char *) NULL, char *const envp[] */);</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">//    int execv(const char *pathname, char *const argv[]);</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">//    int execvp(const char *file, char *const argv[]);</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">//    int execvpe(const char *file, char *const argv[],</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">//                    char *const envp[]);</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Function Description POSIX?</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>        <span class="co">// execl()  NULL-terminated argument list   Yes</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">// execle() NULL-terminated argument list, specify the new process's environment    Yes</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>        <span class="co">// execlp() NULL-terminated argument list, search for the new process in PATH   Yes</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>        <span class="co">// execlpe()    NULL-terminated argument list, search for the new process in PATH, specify the new process's environment    No</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>        <span class="co">// execv()  NULL-terminated array of arguments  Yes</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>        <span class="co">// execve() NULL-terminated array of arguments, specify the new process's environment   Yes</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>        <span class="co">// execvp() NULL-terminated array of arguments, search for the new process in PATH  Yes</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>        <span class="co">// execvpe()    NULL-terminated array of arguments, search for the new process in PATH, specify the new process's environment   No</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> <span class="op">*</span>myargs<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>        myargs<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> strdup<span class="op">(</span><span class="st">"ls"</span><span class="op">);</span>         <span class="co">// program: "ls"</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>        myargs<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> strdup<span class="op">(</span><span class="st">"-a"</span><span class="op">);</span>         <span class="co">// argument:</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>        myargs<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> NULL<span class="op">;</span>                 <span class="co">// marks end of array</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>        <span class="dt">char</span> <span class="op">*</span><span class="dt">const</span> envp<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="op">{</span><span class="st">""</span><span class="op">,</span> NULL<span class="op">};</span> <span class="co">// here you can set environment variables.</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>        <span class="co">//uncomment the next line to execute execvp</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>        <span class="co">//execvp(myargs[0], myargs);</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>        execle<span class="op">(</span><span class="st">"/usr/bin/ls"</span><span class="op">,</span> <span class="st">"-a"</span><span class="op">,</span> NULL<span class="op">,</span> envp<span class="op">);</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"this shouldn't print out"</span><span class="op">);</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> wc <span class="op">=</span> wait<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am parent of </span><span class="sc">%d</span><span class="st"> (wc:</span><span class="sc">%d</span><span class="st">) (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>               rc<span class="op">,</span> wc<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Output:</strong></p>
+<pre><code>hello world (pid:1213)
+hello, I am child (pid:1214)
+'1 copy.c'   1.c   2.c   3.c   4.c   a.out   myFile.txt
+hello, I am parent of 1214 (wc:1214) (pid:1213)</code></pre>
+</section>
+<section id="question-5-1" class="level4">
+<h4 data-anchor-id="question-5-1">Question 5</h4>
+<p><strong>Q:</strong> Now write a program that uses <code>wait()</code> to wait for the child process to finish in the parent. What does <code>wait()</code> return? What happens if you use <code>wait()</code> in the child?</p>
+<p><strong>Code</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"hello world (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> getpid<span class="op">());</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child (new process)</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am child (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> getpid<span class="op">());</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> wc <span class="op">=</span> wait<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am parent of </span><span class="sc">%d</span><span class="st"> (wc:</span><span class="sc">%d</span><span class="st">) (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>           rc<span class="op">,</span> wc<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span> getpid<span class="op">());</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Code (with wait in child):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"hello world (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child (new process)</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am child (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>        sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> wc <span class="op">=</span> wait<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"The value of return from wait in child program is </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span> wc<span class="op">);</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> wc <span class="op">=</span> wait<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am parent of </span><span class="sc">%d</span><span class="st"> (wc:</span><span class="sc">%d</span><span class="st">) (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>               rc<span class="op">,</span> wc<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Observations:</strong> <code>wait()</code> returns the PID of the child process when used in the parent. <code>wait()</code> returns the <code>-1</code> when used in the child.</p>
+</section>
+<section id="question-6-1" class="level4">
+<h4 data-anchor-id="question-6-1">Question 6</h4>
+<p><strong>Q:</strong> Write a slight modification of the previous program, this time using <code>waitpid()</code> instead of <code>wait()</code>. When would <code>waitpid()</code> be useful?</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span><span class="pp"> </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"hello world (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    pid_t rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> status<span class="op">;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child (new process)</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am child (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>        <span class="co">//         Wait for a child matching PID to die.</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">// If PID is greater than 0, match any process whose process ID is PID.</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">// If PID is (pid_t) -1, match any process.</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">// If PID is (pid_t) 0, match any process with the</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>        <span class="co">// same process group as the current process.</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">// If PID is less than -1, match any process whose</span></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>        <span class="co">// process group is the absolute value of PID.</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">// If the WNOHANG bit is set in OPTIONS, and that child</span></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>        <span class="co">// is not already dead, return (pid_t) 0. If successful,</span></span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>        <span class="co">// return PID and store the dead child's status in STAT_LOC.</span></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Return (pid_t) -1 for errors. If the WUNTRACED bit is</span></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>        <span class="co">// set in OPTIONS, return status for stopped children; otherwise don't.</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>        pid_t wc <span class="op">=</span> waitpid<span class="op">(</span>rc<span class="op">,</span> <span class="op">&amp;</span>status<span class="op">,</span> WUNTRACED<span class="op">);</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"hello, I am parent of </span><span class="sc">%d</span><span class="st"> (wc:</span><span class="sc">%d</span><span class="st">) (pid:</span><span class="sc">%d</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>               rc<span class="op">,</span> wc<span class="op">,</span> <span class="op">(</span><span class="dt">int</span><span class="op">)</span>getpid<span class="op">());</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Observation:</strong> <code>waitpid</code> allows for more finegrained control over which process to wait for, what to wait</p>
+</section>
+<section id="question-7-1" class="level4">
+<h4 data-anchor-id="question-7-1">Question 7</h4>
+<p><strong>Q:</strong> Write a program that creates a child process, and then in the child closes standard output (<code>STDOUT FILENO</code>). What happens if the child calls <code>printf()</code> to print some output after closing the descriptor?</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;assert.h&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">// child: redirect standard output to a file</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    close<span class="op">(</span>STDOUT_FILENO<span class="op">);</span> </span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    open<span class="op">(</span><span class="st">"theoutput.txt"</span><span class="op">,</span> O_CREAT<span class="op">|</span>O_WRONLY<span class="op">|</span>O_TRUNC<span class="op">,</span> S_IRWXU<span class="op">);</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"I am printing from the child</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">// parent goes down this path (original process)</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> wc <span class="op">=</span> wait<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    assert<span class="op">(</span>wc <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Observation:</strong> If you don’t open a file to redirect the output printed by the child, the output is lost.</p>
+</section>
+<section id="question-8-1" class="level4">
+<h4 data-anchor-id="question-8-1">Question 8</h4>
+<p><strong>Q:</strong> Write a program that creates two children, and connects the standard output of one to the standard input of the other, using the <code>pipe()</code> system call.</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;assert.h&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/wait.h&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> fd1<span class="op">[</span><span class="dv">2</span><span class="op">];</span> <span class="co">// Used to store two ends of first pipe</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">//[0] is the reading end</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">//[1] is the writing end</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>pipe<span class="op">(</span>fd1<span class="op">)</span> <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"Pipe Failed"</span><span class="op">);</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> rc1 <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rc1 <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>        <span class="co">// fork failed; exit</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc1 <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span> <span class="co">//body of the first child</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>        <span class="co">// child: redirect standard output to a file</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>        <span class="co">//setting the standard output of first child to end of the pipe</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>        <span class="co">/* Standard file descriptors.  */</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">// #define  STDIN_FILENO    0   /* Standard input.  */</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>        <span class="co">// #define  STDOUT_FILENO   1   /* Standard output.  */</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">// #define  STDERR_FILENO   2   /* Standard error output.  */</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>        dup2<span class="op">(</span>fd1<span class="op">[</span><span class="dv">1</span><span class="op">],</span> <span class="dv">1</span><span class="op">);</span> <span class="co">// redirect stdout</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"Hello this is a message from first child</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> rc2 <span class="op">=</span> fork<span class="op">();</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>rc2 <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>            <span class="co">// fork failed; exit</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>            fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"fork failed</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>            exit<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>rc2 <span class="op">==</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>            <span class="co">//body of the second child</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>            dup2<span class="op">(</span>fd1<span class="op">[</span><span class="dv">0</span><span class="op">],</span> STDIN_FILENO<span class="op">);</span> <span class="co">//setting the input of second child to output of first)</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>            sleep<span class="op">(</span><span class="dv">1</span><span class="op">);</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>            <span class="dt">char</span> message<span class="op">[</span><span class="dv">100</span><span class="op">];</span></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>            <span class="co">//scanf("%s",message);</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>            gets<span class="op">(</span>message<span class="op">);</span></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"The message from the first child is </span><span class="sc">\"%s\"\n</span><span class="st">"</span><span class="op">,</span> message<span class="op">);</span></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>            <span class="co">//body of the parent</span></span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>            <span class="co">//sleep(1);</span></span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>            wait<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="lab-3" class="level2">
+<h2 data-anchor-id="lab-3">Lab 3</h2>
+<section id="question-1-2" class="level4">
+<h4 data-anchor-id="question-1-2">Question 1</h4>
+<p><strong>Q:</strong> Write your own version of the command line program <code>stat</code>, which simply calls the stat() system call on a given file or directory. Print out file size, number of blocks allocated, reference (link) count, and so forth. What is the link count of a directory, as the number of entries in the directory changes? Useful interfaces: <code>stat()</code>, naturally.</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">// For stat</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/stat.h&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">// For catching errors in errno:</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;errno.h&gt;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">// For formatting errno to string:</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">// For formatting time:</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">// For username from UID</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;pwd.h&gt;</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">// For groupname from GID</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;grp.h&gt;</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">// Here is how the structure returned by stat looks:</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">//     struct stat {</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">//                 dev_t     st_dev;         /* ID of device containing file */</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">//                 ino_t     st_ino;         /* Inode number */</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co">//                 mode_t    st_mode;        /* File type and mode */</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="co">//                 nlink_t   st_nlink;       /* Number of hard links */</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co">//                 uid_t     st_uid;         /* User ID of owner */</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co">//                 gid_t     st_gid;         /* Group ID of owner */</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co">//                 dev_t     st_rdev;        /* Device ID (if special file) */</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co">//                 off_t     st_size;        /* Total size, in bytes */</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="co">//                 blksize_t st_blksize;     /* Block size for filesystem I/O */</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="co">//                 blkcnt_t  st_blocks;      /* Number of 512B blocks allocated */</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co">//                 struct timespec st_atim;  /* Time of last access */</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co">//                 struct timespec st_mtim;  /* Time of last modification */</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="co">//                 struct timespec st_ctim;  /* Time of last status change */</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co">//                 </span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="co">//                 #define st_atime st_atim.tv_sec      /* Backward compatibility */</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="co">//                 #define st_mtime st_mtim.tv_sec</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a><span class="co">//                 #define st_ctime st_ctim.tv_sec</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="co">//     };</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> print_stat<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>filename<span class="op">){</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> stat file_stat<span class="op">;</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>stat<span class="op">(</span>filename<span class="op">,</span> <span class="op">&amp;</span>file_stat<span class="op">)</span> <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">){</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Error handling</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"stat: cannot stat '</span><span class="sc">%s</span><span class="st">': </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> filename<span class="op">,</span>strerror<span class="op">(</span>errno<span class="op">));</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"File:"</span><span class="op">,</span> filename<span class="op">);</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%ld\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"Size:"</span><span class="op">,</span> file_stat<span class="op">.</span>st_size<span class="op">);</span></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%ld\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"Blocks:"</span><span class="op">,</span> file_stat<span class="op">.</span>st_blocks<span class="op">);</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%ld\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"IO Block:"</span><span class="op">,</span> file_stat<span class="op">.</span>st_blksize<span class="op">);</span></span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> "</span><span class="op">,</span> <span class="st">"File Type:"</span><span class="op">);</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>        <span class="co">// How to get the various types of files</span></span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>            <span class="co">// S_ISREG(m)  is it a regular file?</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>S_ISREG<span class="op">(</span>file_stat<span class="op">.</span>st_mode<span class="op">))</span> printf<span class="op">(</span><span class="st">"regular file</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>            <span class="co">// S_ISDIR(m)  directory?</span></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>S_ISDIR<span class="op">(</span>file_stat<span class="op">.</span>st_mode<span class="op">))</span> printf<span class="op">(</span><span class="st">"directory</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>            <span class="co">// S_ISCHR(m)  character device?</span></span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>S_ISCHR<span class="op">(</span>file_stat<span class="op">.</span>st_mode<span class="op">))</span> printf<span class="op">(</span><span class="st">"character device</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>            <span class="co">// S_ISBLK(m)  block device?</span></span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>S_ISBLK<span class="op">(</span>file_stat<span class="op">.</span>st_mode<span class="op">))</span> printf<span class="op">(</span><span class="st">"block device</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>            <span class="co">// S_ISFIFO(m) FIFO (named pipe)?</span></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>S_ISFIFO<span class="op">(</span>file_stat<span class="op">.</span>st_mode<span class="op">))</span> printf<span class="op">(</span><span class="st">"FIFO (named pipe)</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>            <span class="co">// S_ISLNK(m)  symbolic link?</span></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>S_ISLNK<span class="op">(</span>file_stat<span class="op">.</span>st_mode<span class="op">))</span> printf<span class="op">(</span><span class="st">"symbolic link</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>            <span class="co">// S_ISSOCK(m) socket?</span></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>S_ISSOCK<span class="op">(</span>file_stat<span class="op">.</span>st_mode<span class="op">))</span> printf<span class="op">(</span><span class="st">"socket</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%lx\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"Device:"</span><span class="op">,</span>file_stat<span class="op">.</span>st_dev<span class="op">);</span></span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%lu\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"Inode:"</span><span class="op">,</span> file_stat<span class="op">.</span>st_ino<span class="op">);</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%lu\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"Links:"</span><span class="op">,</span> file_stat<span class="op">.</span>st_nlink<span class="op">);</span></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%04o\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"Access:"</span><span class="op">,</span> file_stat<span class="op">.</span>st_mode<span class="op">&amp;</span><span class="bn">0777</span><span class="op">);</span></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Getting Username from UID</span></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>        <span class="kw">struct</span> passwd <span class="op">*</span>pws<span class="op">;</span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>        pws <span class="op">=</span> getpwuid<span class="op">(</span>file_stat<span class="op">.</span>st_uid<span class="op">);</span></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> (</span><span class="sc">%5d</span><span class="st">/</span><span class="sc">%s</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"Uid:"</span><span class="op">,</span> file_stat<span class="op">.</span>st_uid <span class="op">,</span> pws<span class="op">-&gt;</span>pw_name<span class="op">);</span></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>        <span class="co">//Getting Group Name from GID</span></span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>        <span class="kw">struct</span> group <span class="op">*</span>grp<span class="op">;</span></span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>        grp <span class="op">=</span> getgrgid<span class="op">(</span>file_stat<span class="op">.</span>st_gid<span class="op">);</span></span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> (</span><span class="sc">%5d</span><span class="st">/</span><span class="sc">%s</span><span class="st">)</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> <span class="st">"Gid:"</span><span class="op">,</span> file_stat<span class="op">.</span>st_gid <span class="op">,</span> grp<span class="op">-&gt;</span>gr_name<span class="op">);</span></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Format times using ctime from time.h</span></span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%s</span><span class="st">"</span><span class="op">,</span> <span class="st">"Access:"</span><span class="op">,</span> ctime<span class="op">(&amp;</span>file_stat<span class="op">.</span>st_atime<span class="op">));</span></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%s</span><span class="st">"</span><span class="op">,</span> <span class="st">"Modify:"</span><span class="op">,</span> ctime<span class="op">(&amp;</span>file_stat<span class="op">.</span>st_mtime<span class="op">));</span></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%10s</span><span class="st"> </span><span class="sc">%s</span><span class="st">"</span><span class="op">,</span> <span class="st">"Change:"</span><span class="op">,</span> ctime<span class="op">(&amp;</span>file_stat<span class="op">.</span>st_ctime<span class="op">));</span></span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> argv<span class="op">[]){</span></span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc<span class="op">==</span><span class="dv">1</span><span class="op">){</span></span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>        <span class="co">// If not other argument is given</span></span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span><span class="st">"stat: missing operand</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a>        <span class="co">// print info one argument at a time</span></span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span><span class="dv">1</span><span class="op">;</span>i<span class="op">&lt;</span>argc<span class="op">;</span>i<span class="op">++){</span></span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>            print_stat<span class="op">(</span>argv<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="question-2-2" class="level4">
+<h4 data-anchor-id="question-2-2">Question 2</h4>
+<p><strong>Q:</strong> Write a program that lists files in the given directory. When called without any arguments, the program should just print the file names. When invoked with the <code>-l</code> flag, the program should print out information about each file, such as the owner, group, permissions, and other information obtained from the <code>stat()</code> system call. The program should take one additional argument, which is the directory to read, e.g., <code>myls -l directory</code>. If no directory is given, the program should just use the current working directory. Useful interfaces: <code>stat()</code>, <code>opendir()</code>, <code>readdir()</code>, <code>getcwd()</code>.</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span><span class="pp">    </span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/stat.h&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span><span class="pp">   </span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;dirent.h&gt;</span><span class="pp">    </span><span class="co">// opendir, readdir, closedir</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span><span class="pp">    </span><span class="co">// strlen, strncpy, strncat</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdbool.h&gt;</span><span class="pp">   </span><span class="co">// For booleans</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;errno.h&gt;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;time.h&gt;</span><span class="pp">   </span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;pwd.h&gt;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;grp.h&gt;</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="pp">#define STRINGSIZE </span><span class="dv">1024</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> print_file<span class="op">(</span><span class="kw">struct</span> stat sb<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Getting Username from UID</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> passwd <span class="op">*</span>pws<span class="op">;</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>    pws <span class="op">=</span> getpwuid<span class="op">(</span>sb<span class="op">.</span>st_uid<span class="op">);</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">//Getting Group Name from GID</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> group <span class="op">*</span>grp<span class="op">;</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    grp <span class="op">=</span> getgrgid<span class="op">(</span>sb<span class="op">.</span>st_gid<span class="op">);</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Time String</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span><span class="op">*</span> time_str <span class="op">=</span> ctime<span class="op">(&amp;</span>sb<span class="op">.</span>st_mtime<span class="op">);</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    time_str<span class="op">[</span>strlen<span class="op">(</span>time_str<span class="op">)</span> <span class="op">-</span> <span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="ch">'</span><span class="sc">\0</span><span class="ch">'</span><span class="op">;</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"</span><span class="sc">%6o</span><span class="st"> </span><span class="sc">%3lu</span><span class="st"> </span><span class="sc">%12s</span><span class="st"> </span><span class="sc">%12s</span><span class="st"> </span><span class="sc">%6ld</span><span class="st"> </span><span class="sc">%s</span><span class="st"> "</span><span class="op">,</span> sb<span class="op">.</span>st_mode<span class="op">,</span> sb<span class="op">.</span>st_nlink <span class="op">,</span> pws<span class="op">-&gt;</span>pw_name<span class="op">,</span> grp<span class="op">-&gt;</span>gr_name<span class="op">,</span> sb<span class="op">.</span>st_size<span class="op">,</span> time_str<span class="op">);</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> stat sb<span class="op">;</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span> pathname <span class="op">=</span> <span class="st">"."</span><span class="op">;</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> list<span class="op">;</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    DIR <span class="op">*</span>dp<span class="op">;</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    list <span class="op">=</span> <span class="op">(</span>argc<span class="op">&gt;</span><span class="dv">1</span> <span class="op">&amp;&amp;</span> strcmp<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">],</span> <span class="st">"-l"</span><span class="op">)==</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">==</span> <span class="dv">2</span> <span class="op">+</span> list<span class="op">)</span> pathname <span class="op">=</span> argv<span class="op">[</span><span class="dv">1</span><span class="op">+</span>list<span class="op">];</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="cf">if</span><span class="op">(</span>argc<span class="op">!=</span><span class="dv">1</span> <span class="op">+</span> list<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Error handling</span></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span><span class="st">"Usage: </span><span class="sc">%s</span><span class="st"> [-l] [filename]"</span><span class="op">,</span> argv<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>stat<span class="op">(</span>pathname<span class="op">,</span> <span class="op">&amp;</span>sb<span class="op">)</span> <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">){</span></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Error handling</span></span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"stat: cannot stat '</span><span class="sc">%s</span><span class="st">': </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> pathname<span class="op">,</span>strerror<span class="op">(</span>errno<span class="op">));</span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>S_ISDIR<span class="op">(</span>sb<span class="op">.</span>st_mode<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">((</span>dp <span class="op">=</span> opendir<span class="op">(</span>pathname<span class="op">))</span> <span class="op">==</span> NULL<span class="op">){</span></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Error handling</span></span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>            fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"opendir: cannot opendir '</span><span class="sc">%s</span><span class="st">': </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> pathname<span class="op">,</span>strerror<span class="op">(</span>errno<span class="op">));</span></span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>            exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>        <span class="kw">struct</span> dirent <span class="op">*</span>d<span class="op">;</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">((</span>d <span class="op">=</span> readdir<span class="op">(</span>dp<span class="op">))</span> <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>list<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>                <span class="dt">char</span> filePath<span class="op">[</span>STRINGSIZE<span class="op">]</span> <span class="op">=</span> <span class="st">""</span><span class="op">;</span></span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>                strncpy<span class="op">(</span>filePath<span class="op">,</span> pathname<span class="op">,</span> strlen<span class="op">(</span>pathname<span class="op">));</span></span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>                strncat<span class="op">(</span>filePath<span class="op">,</span> <span class="st">"/"</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>                strncat<span class="op">(</span>filePath<span class="op">,</span> d<span class="op">-&gt;</span>d_name<span class="op">,</span> strlen<span class="op">(</span>d<span class="op">-&gt;</span>d_name<span class="op">));</span></span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>stat<span class="op">(</span>filePath<span class="op">,</span> <span class="op">&amp;</span>sb<span class="op">)</span> <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">){</span></span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>                    <span class="co">// Error handling</span></span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>                    fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"stat: cannot stat '</span><span class="sc">%s</span><span class="st">': </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> pathname<span class="op">,</span>strerror<span class="op">(</span>errno<span class="op">));</span></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>                    exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>                print_file<span class="op">(</span>sb<span class="op">);</span></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>            printf<span class="op">(</span><span class="st">"</span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> d<span class="op">-&gt;</span>d_name<span class="op">);</span></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a>        closedir<span class="op">(</span>dp<span class="op">);</span></span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>list<span class="op">)</span></span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>            print_file<span class="op">(</span>sb<span class="op">);</span></span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> pathname<span class="op">);</span></span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="question-3-2" class="level4">
+<h4 data-anchor-id="question-3-2">Question 3</h4>
+<p><strong>Q:</strong> Write a program that prints out the last few lines of a file. The program should be efficient, in that it seeks to near the end of the file, reads in a block of data, and then goes backwards until it finds the requested number of lines; at this point, it should print out those lines from beginning to the end of the file. To invoke the program, one should type: <code>mytail -n file</code>, where <code>n</code> is the number of lines at the end of the file to print. Useful interfaces: <code>stat()</code>, <code>lseek()</code>, <code>open()</code>, <code>read()</code>, <code>close()</code>.</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/stat.h&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;fcntl.h&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;errno.h&gt;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> argv<span class="op">[]){</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>argc <span class="op">!=</span> <span class="dv">3</span> <span class="op">||</span> strlen<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">])</span> <span class="op">&lt;=</span> <span class="dv">1</span> <span class="op">||</span> argv<span class="op">[</span><span class="dv">1</span><span class="op">][</span><span class="dv">0</span><span class="op">]</span> <span class="op">!=</span> <span class="ch">'-'</span><span class="op">){</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"Usage: </span><span class="sc">%s</span><span class="st"> -&lt;offset&gt; &lt;filename&gt;</span><span class="sc">\n</span><span class="st">"</span><span class="op">,</span> argv<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> num_lines <span class="op">=</span> atoi<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">]+</span><span class="dv">1</span><span class="op">)</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">struct</span> stat sb<span class="op">;</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>stat<span class="op">(</span>argv<span class="op">[</span><span class="dv">2</span><span class="op">],</span> <span class="op">&amp;</span>sb<span class="op">)</span> <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">){</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Error handling</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>            fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"stat: cannot stat '</span><span class="sc">%s</span><span class="st">': </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> argv<span class="op">[</span><span class="dv">2</span><span class="op">],</span>strerror<span class="op">(</span>errno<span class="op">));</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>            exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> fd <span class="op">=</span> open<span class="op">(</span>argv<span class="op">[</span><span class="dv">2</span><span class="op">],</span> O_RDONLY<span class="op">);</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>            <span class="dt">long</span> rd_size <span class="op">=</span> sb<span class="op">.</span>st_blksize<span class="op">;</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>            <span class="dt">char</span> buf<span class="op">[</span>rd_size<span class="op">+</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>            <span class="dt">long</span> offset <span class="op">=</span> lseek<span class="op">(</span>fd<span class="op">,</span><span class="dv">0</span><span class="op">,</span>SEEK_END<span class="op">);</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> bytes_read<span class="op">;</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> <span class="op">(</span>num_lines <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">&amp;&amp;</span> offset <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>                <span class="dt">int</span> seek_rel_to <span class="op">=</span> <span class="op">(</span>offset<span class="op">&gt;=</span>rd_size<span class="op">)?</span>SEEK_CUR<span class="op">:</span>SEEK_SET<span class="op">;</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>                <span class="dt">long</span> seek_to <span class="op">=</span>  <span class="op">(</span>offset<span class="op">&gt;=</span>rd_size<span class="op">)?-</span>rd_size<span class="op">:</span><span class="dv">0</span><span class="op">;</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>                <span class="dt">int</span> read_len <span class="op">=</span> <span class="op">(</span>offset<span class="op">&gt;=</span>rd_size<span class="op">)?</span>rd_size<span class="op">:</span>offset<span class="op">;</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>                lseek<span class="op">(</span>fd<span class="op">,</span> seek_to<span class="op">,</span> seek_rel_to<span class="op">);</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>                bytes_read <span class="op">=</span> read<span class="op">(</span>fd<span class="op">,</span>buf<span class="op">,</span>read_len<span class="op">);</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span>bytes_read<span class="op">;</span>i<span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span>i<span class="op">--){</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span><span class="op">(</span>buf<span class="op">[</span>i<span class="op">]==</span><span class="ch">'</span><span class="sc">\n</span><span class="ch">'</span><span class="op">){</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>                        num_lines<span class="op">--;</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">if</span><span class="op">(</span>num_lines<span class="op">&lt;</span><span class="dv">0</span><span class="op">){</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>                            offset <span class="op">=</span> lseek<span class="op">(</span>fd<span class="op">,-</span>bytes_read <span class="op">+</span> i<span class="op">+</span><span class="dv">1</span><span class="op">,</span>SEEK_CUR<span class="op">);</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>                            <span class="cf">goto</span> found_all<span class="op">;</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>                        <span class="op">}</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>                    <span class="op">}</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>                offset <span class="op">=</span> lseek<span class="op">(</span>fd<span class="op">,</span> seek_to<span class="op">,</span> seek_rel_to<span class="op">);</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>            found_all<span class="op">:</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span><span class="op">((</span>bytes_read <span class="op">=</span> read<span class="op">(</span>fd<span class="op">,</span>buf<span class="op">,</span>rd_size<span class="op">))</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a>                buf<span class="op">[</span>bytes_read<span class="op">]</span> <span class="op">=</span> <span class="ch">'</span><span class="sc">\0</span><span class="ch">'</span><span class="op">;</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a>                printf<span class="op">(</span><span class="st">"</span><span class="sc">%s</span><span class="st">"</span><span class="op">,</span> buf<span class="op">);</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a>            close<span class="op">(</span>fd<span class="op">);</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="question-4-2" class="level4">
+<h4 data-anchor-id="question-4-2">Question 4</h4>
+<p><strong>Q:</strong> Write a program that prints out the names of each file and directory in the file system tree, starting at a given point in the tree. For example, when run without arguments, the program should start with the current working directory and print its contents, as well as the contents of any sub-directories, etc., until the entire tree, root at the CWD, is printed. If given a single argument (of a directory name), use that as the root of the tree instead. Refine your recursive search with more fun options, similar to the powerful <code>find</code> command line tool. Useful interfaces: figure it out.</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span><span class="pp">    </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/types.h&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;sys/stat.h&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span><span class="pp">    </span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;dirent.h&gt;</span><span class="pp">    </span><span class="co">// opendir, readdir, closedir</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;string.h&gt;</span><span class="pp">    </span><span class="co">// strlen, strncpy, strncat</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;errno.h&gt;</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;pwd.h&gt;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;grp.h&gt;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="pp">#define STRINGSIZE </span><span class="dv">1024</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> print_dir<span class="op">(</span><span class="dt">char</span> <span class="op">*</span>pathname<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    DIR <span class="op">*</span>dp<span class="op">;</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">struct</span> stat sb<span class="op">;</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>stat<span class="op">(</span>pathname<span class="op">,</span> <span class="op">&amp;</span>sb<span class="op">)</span> <span class="op">==</span> <span class="op">-</span><span class="dv">1</span><span class="op">){</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Error handling</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"stat: cannot stat '</span><span class="sc">%s</span><span class="st">': </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> pathname<span class="op">,</span>strerror<span class="op">(</span>errno<span class="op">));</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>S_ISDIR<span class="op">(</span>sb<span class="op">.</span>st_mode<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">((</span>dp <span class="op">=</span> opendir<span class="op">(</span>pathname<span class="op">))</span> <span class="op">==</span> NULL<span class="op">){</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Error handling</span></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>            fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">"opendir: cannot opendir '</span><span class="sc">%s</span><span class="st">': </span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> pathname<span class="op">,</span>strerror<span class="op">(</span>errno<span class="op">));</span></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>            exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">struct</span> dirent <span class="op">*</span>d<span class="op">;</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">((</span>d <span class="op">=</span> readdir<span class="op">(</span>dp<span class="op">))</span> <span class="op">!=</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span><span class="op">(</span>strcmp<span class="op">(</span>d<span class="op">-&gt;</span>d_name<span class="op">,</span><span class="st">"."</span><span class="op">)==</span><span class="dv">0</span><span class="op">)</span> printf<span class="op">(</span><span class="st">"</span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span>pathname<span class="op">);</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>strcmp<span class="op">(</span>d<span class="op">-&gt;</span>d_name<span class="op">,</span><span class="st">".."</span><span class="op">)!=</span><span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>                <span class="dt">char</span> path_string<span class="op">[</span>STRINGSIZE<span class="op">]</span> <span class="op">=</span> <span class="st">""</span><span class="op">;</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>                strcpy<span class="op">(</span>path_string<span class="op">,</span> pathname<span class="op">);</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>                strcat<span class="op">(</span>path_string<span class="op">,</span><span class="st">"/"</span><span class="op">);</span></span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>                strcat<span class="op">(</span>path_string<span class="op">,</span>d<span class="op">-&gt;</span>d_name<span class="op">);</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>                print_dir<span class="op">(</span>path_string<span class="op">);</span></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>        closedir<span class="op">(</span>dp<span class="op">);</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"</span><span class="sc">%s\n</span><span class="st">"</span><span class="op">,</span> pathname<span class="op">);</span></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">*</span>argv<span class="op">[])</span> <span class="op">{</span></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> <span class="op">*</span> pathname <span class="op">=</span> <span class="st">"."</span><span class="op">;</span></span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span><span class="op">(</span>argc<span class="op">&gt;</span><span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Error handling</span></span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span><span class="st">"Usage: </span><span class="sc">%s</span><span class="st"> [filename]"</span><span class="op">,</span> argv<span class="op">[</span><span class="dv">0</span><span class="op">]);</span></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>        exit<span class="op">(</span>EXIT_FAILURE<span class="op">);</span></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc<span class="op">==</span><span class="dv">2</span><span class="op">)</span> pathname <span class="op">=</span> argv<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>    print_dir<span class="op">(</span>pathname<span class="op">);</span></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="lab-4" class="level2">
+<h2 data-anchor-id="lab-4">Lab 4</h2>
+<section id="question-1-3" class="level4">
+<h4 data-anchor-id="question-1-3">Question 1</h4>
+<p><strong>Q:</strong> The first Linux tool you should check out is the very simple tool <code>free</code>. First, type <code>man free</code> and read its entire manual page; it’s short, don’t worry!</p>
+<p><strong>A:</strong> Self-explanatory. Just run <code>man free</code>.</p>
+</section>
+<section id="question-2-3" class="level4">
+<h4 data-anchor-id="question-2-3">Question 2</h4>
+<p><strong>Q:</strong> Now, run <code>free</code>, perhaps using some of the arguments that might be useful (e.g., <code>-m</code>, to display memory totals in megabytes). How much memory is in your system? How much is free? Do these numbers match your intuition?</p>
+<p><strong>A:</strong> Try different arguments with <code>free</code>. A very useful argument is <code>-h</code> which makes all the units in human readable format like MB, GB according to the size of the number. Try <code>free -h</code> to see for yourself. You will see two rows in the output, one will be for the physical RAM memory and the other will be for swap memory. Swap is a portion of memory which resides on your harddrive, usually as a separate partition and is used only when the RAM is full, so that the OS doesn’t crash or malfunction as soon as the physical memory is filled and there is some leeway to recover from the excessive memory usage if need be. Meanwhile, when swap memory is being used, there is a significant slowdown in the operations as memory access from harddisks is trypically much slower that RAM even if you have an SSD.</p>
+</section>
+<section id="question-3-3" class="level4">
+<h4 data-anchor-id="question-3-3">Question 3</h4>
+<p><strong>Q:</strong> Next, create a little program that uses a certain amount of memory, called <code>memory-user.c</code>. This program should take one commandline argument: the number of megabytes of memory it will use. When run, it should allocate an array, and constantly stream through the array, touching each entry. The program should do this indefinitely, or, perhaps, for a certain amount of time also specified at the command line.</p>
+<p><strong>Code:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;time.h&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include</span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">*</span> argv<span class="op">[]){</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"Current Process ID = </span><span class="sc">%d\n</span><span class="st">"</span><span class="op">,</span>getpid<span class="op">());</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">long</span> <span class="dt">long</span> <span class="dt">int</span> size <span class="op">=</span> <span class="op">((</span><span class="dt">long</span> <span class="dt">long</span> <span class="dt">int</span><span class="op">)</span>atoi<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">]))*</span><span class="dv">1024</span><span class="op">*</span><span class="dv">1024</span><span class="op">;</span> <span class="co">//in bytes</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span><span class="op">*</span> buffer <span class="op">=</span> <span class="op">(</span><span class="dt">int</span><span class="op">*)</span>malloc<span class="op">(</span>size<span class="op">);</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">//run the while loop for given amount of time.</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">time_t</span> endwait<span class="op">,</span> seconds<span class="op">,</span> start<span class="op">;</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    seconds<span class="op">=</span>atoi<span class="op">(</span>argv<span class="op">[</span><span class="dv">2</span><span class="op">]);</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>time<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    endwait <span class="op">=</span> start <span class="op">+</span> seconds<span class="op">;</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>start<span class="op">&lt;</span>endwait<span class="op">){</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>        printf<span class="op">(</span><span class="st">"."</span><span class="op">);</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        fflush<span class="op">(</span>stdout<span class="op">);</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span><span class="op">(</span><span class="dt">long</span> <span class="dt">long</span> <span class="dt">int</span> i<span class="op">=</span><span class="dv">0</span><span class="op">;</span> i<span class="op">&lt;</span>size<span class="op">/</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">);</span> i<span class="op">++){</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>            buffer<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> time<span class="op">(</span>NULL<span class="op">);</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">"(done)</span><span class="sc">\n</span><span class="st">"</span><span class="op">);</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Usage:</strong> After compiling this program, just run with two arguments. The first argument is the number of MB to reserve and the second is the minimum number of seconds to run the program for.</p>
+<p><strong>Additional:</strong> Find out why you need to run through the array. What happens if we don’t do so?</p>
+</section>
+<section id="question-4-3" class="level4">
+<h4 data-anchor-id="question-4-3">Question 4</h4>
+<p><strong>Q:</strong> Now, while running your <code>memory-user</code> program, also (in a different terminal window, but on the same machine) run the <code>free</code> tool. How do the memory usage totals change when your program is running? How about when you kill the <code>memory-user</code> program? Do the numbers match your expectations? Try this for different amounts of memory usage. What happens when you use really large amounts of memory?</p>
+<p><strong>A:</strong> Keep a watch on the memory using <code>watch -n 1 free -m</code>. When the <code>memory-user</code> program is run, you see that the amount of MB you gave as argument gets added to the statistics shown by <code>free</code>. When the program is killed, the used memory decreases by the amount of MB you gave as argument. Also, when a large amount of memory is entered, we observe that the swap is being filled after the RAM is almost full.</p>
+</section>
+<section id="question-5-2" class="level4">
+<h4 data-anchor-id="question-5-2">Question 5</h4>
+<p><strong>Q:</strong> Let’s try one more tool, known as <code>pmap</code>. Spend some time, and read the <code>pmap</code> manual page in detail.</p>
+<p><strong>A:</strong> Self-explanatory. Just run <code>man pmap</code> and read the manual.</p>
+</section>
+<section id="question-6-2" class="level4">
+<h4 data-anchor-id="question-6-2">Question 6</h4>
+<p><strong>Q:</strong> To use <code>pmap</code>, you have to know the <strong>process ID</strong> of the process you’re interested in. Thus, first run <code>ps auxw</code> to see a list of all processes; then, pick an interesting one, such as a browser. You can also use your <code>memory-user</code> program in this case (indeed, you can even have that program call <code>getpid()</code> and print out its PID for your convenience).</p>
+<p><strong>A:</strong> Use the pid of <code>memory-user</code> or any other process and check its memory map using <code>pmap -q &lt;PID&gt;</code>.</p>
+</section>
+<section id="question-7-2" class="level4">
+<h4 data-anchor-id="question-7-2">Question 7</h4>
+<p><strong>Q:</strong> Now run <code>pmap</code> on some of these processes, using various flags (like <code>-X</code>) to reveal many details about the process. What do you see? How many different entities make up a modern address space, as opposed to our simple conception of code/stack/heap?</p>
+<p><strong>A:</strong> Beside stack and heap, we observe <code>Anonymous memory</code>: Memory not relating to any named object or file within the file system. You might also observe <code>vDSO</code> and <code>vsyscall</code> in the output depending on the program and the specific system you’re using. They are both ways to accelerate system calls. You can read more about these <a href="https://stackoverflow.com/questions/19938324/what-are-vdso-and-vsyscall">here</a>.</p>
+</section>
+<section id="question-8-2" class="level4">
+<h4 data-anchor-id="question-8-2">Question 8</h4>
+<p><strong>Q:</strong> Finally, let’s run <code>pmap</code> on your <code>memory-user</code> program, with different amounts of used memory. What do you see here? Does the output from <code>pmap</code> match your expectations?</p>
+<p><strong>A:</strong> On execution of <code>memory-user</code>, as we increase heap allocation, the same is visible in the output of <code>pmap</code>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<footer class="foot">
+  <span>Prof. Nipun Batra · IIT Gandhinagar · Semester I, 2020–21</span>
+  <span><a href="https://nipunbatra.github.io/teaching.html">All courses</a> · <a href="https://nipunbatra.github.io">nipunbatra.github.io</a></span>
+</footer>
+<script>document.body.append(document.currentScript.previousElementSibling);</script>
+<script>
+(() => {
+  // Mark the current page in the rail. Quarto writes the rail links relative to this page.
+  const home = document.querySelector('.rail a.code');
+  const root = home ? new URL(home.getAttribute('href'), location.href).pathname.replace(/[^/]*$/, '') : '/';
+  let rel = location.pathname.startsWith(root) ? location.pathname.slice(root.length) : '';
+  if (rel === '' || rel.endsWith('/')) rel += 'index.html';
+  else if (!/\.[a-z]+$/i.test(rel)) rel += '.html';
+  // A data-page ending in "/" marks a whole folder (for example Assignments/).
+  document.querySelectorAll('.rail nav a[data-page]').forEach(a => {
+    const p = a.dataset.page;
+    if (p.endsWith('/') ? rel.startsWith(p) : rel === p) a.setAttribute('aria-current', 'page');
+  });
+
+  // Copy-link buttons on section headings, lectures and assignment questions.
+  const LINK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg>';
+  document.querySelectorAll('main.content :is(h2, h3, h4)').forEach(h => {
+    if (h.closest('.next, .quarto-title-block, .callout, details') || h.querySelector('.anchor')) return;
+    const row = h.closest('tr[id]');
+    const sec = h.parentElement.tagName === 'SECTION' ? h.parentElement : h.closest('.mod');
+    const target = row || (sec && sec.id ? sec : null) || (h.id ? h : null);
+    if (!target) return;
+    const id = target.id;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'anchor';
+    b.title = 'Copy link';
+    b.setAttribute('aria-label', 'Copy link to ' + (row ? 'lecture ' + id.replace('lecture-', '') : h.textContent.trim()));
+    b.innerHTML = LINK + '<span class="done">Copied</span>';
+    b.addEventListener('click', () => {
+      const url = location.origin + location.pathname + '#' + id;
+      history.replaceState(null, '', '#' + id);
+      const done = () => { b.classList.add('copied'); setTimeout(() => b.classList.remove('copied'), 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => {});
+    });
+    h.append(b);
+  });
+
+  // Contain wide tables in assignments and policies.
+  document.querySelectorAll('main.content table:not(.lt):not(.t)').forEach(table => {
+    if (table.parentElement.classList.contains('course-table-scroll')) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'course-table-scroll';
+    wrapper.setAttribute('role', 'region');
+    wrapper.setAttribute('aria-label', 'Scrollable table');
+    wrapper.tabIndex = 0;
+    table.before(wrapper);
+    wrapper.append(table);
+    if (table.rows[0]?.cells.length <= 2) table.classList.add('course-table-compact');
+  });
+
+  // Dates: read the table in _dates.qmd ("08 Oct 26" or "08 Oct 26, 6:30 pm", IST), grey out the past,
+  // draw a Today line on Assessment and list what is coming up on Home.
+  const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+  const IST = 330 * 60000, DAY = 864e5;
+  const istDay = t => Math.floor((t + IST) / DAY);
+  const now = Date.now(), today = istDay(now);
+  const START = Date.UTC(2020, 7, 3) / DAY; // Monday of the first teaching week
+  function parse(text) {
+    const m = text.match(/(\d{1,2}) ([A-Z][a-z]{2}) (\d{2})(?:,\s*(\d{1,2}):(\d{2})\s*(am|pm))?/i);
+    if (!m) return null;
+    const [, d, mon, y, hh, mm, ap] = m;
+    const day = Date.UTC(2000 + +y, MONTHS[mon], +d) / DAY;
+    let end;
+    if (hh) end = Date.UTC(2000 + +y, MONTHS[mon], +d, (+hh % 12) + (ap.toLowerCase() === 'pm' ? 12 : 0), +mm) - IST;
+    else end = (day + 1) * DAY - IST - 1;
+    return { day, end, time: hh ? `${hh}:${mm} ${ap}` : '' };
+  }
+  const fmt = (day, opts) => new Date(day * DAY).toLocaleDateString('en-GB', Object.assign({ timeZone: 'UTC' }, opts));
+  document.querySelectorAll('.dates table').forEach(table => {
+    table.classList.add('t');
+    const rows = [...table.tBodies[0].rows].map(tr => ({ tr, when: parse(tr.cells[0].textContent) })).filter(r => r.when);
+    const box = table.closest('.next');
+    if (box) {
+      // Home: the next four dates, grouped by day.
+      const groups = [];
+      rows.filter(r => r.when.end >= now).forEach(r => {
+        const g = groups.find(x => x.day === r.when.day);
+        if (g) g.rows.push(r); else groups.push({ day: r.when.day, time: r.when.time, rows: [r] });
+      });
+      const ol = document.createElement('ol');
+      groups.slice(0, 4).forEach(g => {
+        const left = g.day - today;
+        const li = document.createElement('li');
+        if (left <= 3) li.className = 'hot';
+        const rel = left === 0 ? 'today' : left === 1 ? 'tomorrow' : `in ${left} days`;
+        li.innerHTML = `<span class="d">${fmt(g.day, { day: '2-digit', month: 'short' })}<small>${fmt(g.day, { weekday: 'short' })}${g.time ? ' ' + g.time : ''}<br>${rel}</small></span><span></span>`;
+        g.rows.forEach((r, i) => {
+          if (i) li.lastChild.append(document.createElement('br'));
+          const cell = r.tr.cells[1].cloneNode(true);
+          li.lastChild.append(...cell.childNodes);
+        });
+        ol.append(li);
+      });
+      if (!groups.length) ol.innerHTML = '<li><span></span><span>No more dates this semester.</span></li>';
+      table.closest('.dates').replaceWith(ol);
+      return;
+    }
+    // Assessment: grey out the past, mark this week, and draw the Today line.
+    let placed = false;
+    rows.forEach(({ tr, when }) => {
+      const past = when.end < now;
+      tr.classList.toggle('past', past);
+      const tag = document.createElement('td');
+      tag.className = 'tag';
+      if (!past && when.day - today <= 7) tag.innerHTML = '<span class="pill now">This week</span>';
+      tr.append(tag);
+      if (!past && !placed) {
+        placed = true;
+        const t = document.createElement('tr');
+        t.className = 'today';
+        const week = Math.floor((today - START) / 7) + 1;
+        t.innerHTML = `<td>Today, ${fmt(today, { day: '2-digit', month: 'short' })}</td><td colspan="2">${week >= 1 && week <= 17 ? 'Week ' + week : ''}</td>`;
+        tr.before(t);
+      }
+    });
+    const head = table.tHead?.rows[0];
+    if (head) head.append(document.createElement('th'));
+  });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

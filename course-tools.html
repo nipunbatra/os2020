@@ -1,0 +1,126 @@
+<footer class="foot">
+  <span>Prof. Nipun Batra · IIT Gandhinagar · Semester I, 2020–21</span>
+  <span><a href="https://nipunbatra.github.io/teaching.html">All courses</a> · <a href="https://nipunbatra.github.io">nipunbatra.github.io</a></span>
+</footer>
+<script>document.body.append(document.currentScript.previousElementSibling);</script>
+<script>
+(() => {
+  // Mark the current page in the rail. Quarto writes the rail links relative to this page.
+  const home = document.querySelector('.rail a.code');
+  const root = home ? new URL(home.getAttribute('href'), location.href).pathname.replace(/[^/]*$/, '') : '/';
+  let rel = location.pathname.startsWith(root) ? location.pathname.slice(root.length) : '';
+  if (rel === '' || rel.endsWith('/')) rel += 'index.html';
+  else if (!/\.[a-z]+$/i.test(rel)) rel += '.html';
+  // A data-page ending in "/" marks a whole folder (for example Assignments/).
+  document.querySelectorAll('.rail nav a[data-page]').forEach(a => {
+    const p = a.dataset.page;
+    if (p.endsWith('/') ? rel.startsWith(p) : rel === p) a.setAttribute('aria-current', 'page');
+  });
+
+  // Copy-link buttons on section headings, lectures and assignment questions.
+  const LINK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg>';
+  document.querySelectorAll('main.content :is(h2, h3, h4)').forEach(h => {
+    if (h.closest('.next, .quarto-title-block, .callout, details') || h.querySelector('.anchor')) return;
+    const row = h.closest('tr[id]');
+    const sec = h.parentElement.tagName === 'SECTION' ? h.parentElement : h.closest('.mod');
+    const target = row || (sec && sec.id ? sec : null) || (h.id ? h : null);
+    if (!target) return;
+    const id = target.id;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'anchor';
+    b.title = 'Copy link';
+    b.setAttribute('aria-label', 'Copy link to ' + (row ? 'lecture ' + id.replace('lecture-', '') : h.textContent.trim()));
+    b.innerHTML = LINK + '<span class="done">Copied</span>';
+    b.addEventListener('click', () => {
+      const url = location.origin + location.pathname + '#' + id;
+      history.replaceState(null, '', '#' + id);
+      const done = () => { b.classList.add('copied'); setTimeout(() => b.classList.remove('copied'), 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => {});
+    });
+    h.append(b);
+  });
+
+  // Contain wide tables in assignments and policies.
+  document.querySelectorAll('main.content table:not(.lt):not(.t)').forEach(table => {
+    if (table.parentElement.classList.contains('course-table-scroll')) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'course-table-scroll';
+    wrapper.setAttribute('role', 'region');
+    wrapper.setAttribute('aria-label', 'Scrollable table');
+    wrapper.tabIndex = 0;
+    table.before(wrapper);
+    wrapper.append(table);
+    if (table.rows[0]?.cells.length <= 2) table.classList.add('course-table-compact');
+  });
+
+  // Dates: read the table in _dates.qmd ("08 Oct 26" or "08 Oct 26, 6:30 pm", IST), grey out the past,
+  // draw a Today line on Assessment and list what is coming up on Home.
+  const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+  const IST = 330 * 60000, DAY = 864e5;
+  const istDay = t => Math.floor((t + IST) / DAY);
+  const now = Date.now(), today = istDay(now);
+  const START = Date.UTC(2020, 7, 3) / DAY; // Monday of the first teaching week
+  function parse(text) {
+    const m = text.match(/(\d{1,2}) ([A-Z][a-z]{2}) (\d{2})(?:,\s*(\d{1,2}):(\d{2})\s*(am|pm))?/i);
+    if (!m) return null;
+    const [, d, mon, y, hh, mm, ap] = m;
+    const day = Date.UTC(2000 + +y, MONTHS[mon], +d) / DAY;
+    let end;
+    if (hh) end = Date.UTC(2000 + +y, MONTHS[mon], +d, (+hh % 12) + (ap.toLowerCase() === 'pm' ? 12 : 0), +mm) - IST;
+    else end = (day + 1) * DAY - IST - 1;
+    return { day, end, time: hh ? `${hh}:${mm} ${ap}` : '' };
+  }
+  const fmt = (day, opts) => new Date(day * DAY).toLocaleDateString('en-GB', Object.assign({ timeZone: 'UTC' }, opts));
+  document.querySelectorAll('.dates table').forEach(table => {
+    table.classList.add('t');
+    const rows = [...table.tBodies[0].rows].map(tr => ({ tr, when: parse(tr.cells[0].textContent) })).filter(r => r.when);
+    const box = table.closest('.next');
+    if (box) {
+      // Home: the next four dates, grouped by day.
+      const groups = [];
+      rows.filter(r => r.when.end >= now).forEach(r => {
+        const g = groups.find(x => x.day === r.when.day);
+        if (g) g.rows.push(r); else groups.push({ day: r.when.day, time: r.when.time, rows: [r] });
+      });
+      const ol = document.createElement('ol');
+      groups.slice(0, 4).forEach(g => {
+        const left = g.day - today;
+        const li = document.createElement('li');
+        if (left <= 3) li.className = 'hot';
+        const rel = left === 0 ? 'today' : left === 1 ? 'tomorrow' : `in ${left} days`;
+        li.innerHTML = `<span class="d">${fmt(g.day, { day: '2-digit', month: 'short' })}<small>${fmt(g.day, { weekday: 'short' })}${g.time ? ' ' + g.time : ''}<br>${rel}</small></span><span></span>`;
+        g.rows.forEach((r, i) => {
+          if (i) li.lastChild.append(document.createElement('br'));
+          const cell = r.tr.cells[1].cloneNode(true);
+          li.lastChild.append(...cell.childNodes);
+        });
+        ol.append(li);
+      });
+      if (!groups.length) ol.innerHTML = '<li><span></span><span>No more dates this semester.</span></li>';
+      table.closest('.dates').replaceWith(ol);
+      return;
+    }
+    // Assessment: grey out the past, mark this week, and draw the Today line.
+    let placed = false;
+    rows.forEach(({ tr, when }) => {
+      const past = when.end < now;
+      tr.classList.toggle('past', past);
+      const tag = document.createElement('td');
+      tag.className = 'tag';
+      if (!past && when.day - today <= 7) tag.innerHTML = '<span class="pill now">This week</span>';
+      tr.append(tag);
+      if (!past && !placed) {
+        placed = true;
+        const t = document.createElement('tr');
+        t.className = 'today';
+        const week = Math.floor((today - START) / 7) + 1;
+        t.innerHTML = `<td>Today, ${fmt(today, { day: '2-digit', month: 'short' })}</td><td colspan="2">${week >= 1 && week <= 17 ? 'Week ' + week : ''}</td>`;
+        tr.before(t);
+      }
+    });
+    const head = table.tHead?.rows[0];
+    if (head) head.append(document.createElement('th'));
+  });
+})();
+</script>

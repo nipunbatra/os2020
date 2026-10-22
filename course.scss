@@ -1,0 +1,30 @@
+/*-- scss:rules --*/
+
+/* Additions to styles.scss (shared verbatim with dl-2026) for courses with a different shape. */
+
+/* Module strip on Home: the column count follows the number of modules (class c1 to c6). */
+@media (min-width: 1001px) {
+  .modules.c1 { grid-template-columns: minmax(0, 1fr); }
+  .modules.c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .modules.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .modules.c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .modules.c5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .modules.c4, .modules.c5, .modules.c6 { row-gap: 10px; }
+  .modules.c4 li:nth-child(4n+1), .modules.c5 li:nth-child(5n+1), .modules.c6 li:nth-child(6n+1) { border-left: 0; padding-left: 0; }
+}
+
+/* Course record: the Home side box for a finished offering, in place of "Coming up". */
+.next dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14px; line-height: 1.4; margin: 0; }
+.next dt { color: var(--muted); font-weight: 400; }
+.next dd { margin: 0; }
+.next .stat { font: 700 22px/1.1 var(--heading); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+
+/* Pages carried over from older sites */
+main.content > section h2, main.content > h2 { scroll-margin-top: 16px; }
+main.content ul:not([class]), main.content ol:not([class]) { padding-left: 1.3rem; }
+main.content iframe { max-width: 100%; border: 1px solid var(--rule); }
+main.content hr { border-color: var(--rule); opacity: 1; }
+.r-link .ic, .key .ic-link, .r-code .ic, .key .ic-code { color: var(--muted); }
+.people { list-style: none; padding: 0 !important; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px 24px; font-size: 14px; }
+.people li { padding: 4px 0; border-bottom: 1px solid var(--rule); }
+.people .muted { font-size: 12.5px; display: block; }

@@ -1,0 +1,10 @@
+---
+title: "Lectures"
+include-in-header:
+  text: |
+    <meta http-equiv="refresh" content="0; url=../schedule.html">
+    <link rel="canonical" href="https://nipunbatra.github.io/os2020/schedule.html">
+    <meta name="robots" content="noindex">
+---
+
+This page has moved: [go to Lectures](/schedule.html).

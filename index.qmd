@@ -1,0 +1,92 @@
+---
+pagetitle: "CS 301 · Operating Systems 2020"
+description: "Operating Systems at IIT Gandhinagar, Semester I 2020–21"
+body-classes: dl wide
+---
+
+::: {.top}
+
+::: {.top-main}
+```{=html}
+<span hidden></span><!-- keeps Quarto from moving the h1 into its own title block -->
+<h1 class="h1">Operating Systems</h1>
+<p class="role">CS 301 · IIT Gandhinagar · Semester I, 2020–21</p>
+<p class="lede" style="margin-top:18px">CS 301 covers processes and CPU scheduling, memory virtualisation, concurrency, and persistence through file systems, disks and RAID, following <i>Operating Systems: Three Easy Pieces</i>. The course ran in a flipped format, with recorded lecture videos, class meetings on Zoom, weekly labs, and a zine made by each pair of students.</p>
+<dl class="facts">
+  <dt>Instructor</dt><dd><a href="https://nipunbatra.github.io">Prof. Nipun Batra</a></dd>
+  <dt>Email</dt><dd><a href="mailto:nipun.batra@iitgn.ac.in">nipun.batra@iitgn.ac.in</a></dd>
+  <dt>Lectures</dt><dd>Tuesday, Wednesday and Friday, 11:00 am–12:00 noon</dd>
+  <dt>Labs</dt><dd>Thursday, 3:00–5:00 pm</dd>
+  <dt>Teaching mode</dt><dd>Flipped classroom</dd>
+  <dt>Google Classroom</dt><dd>Class code g27z27x</dd>
+  <dt>Teaching assistants</dt><dd><a href="#people">5 TAs</a></dd>
+  <dt>Textbook</dt><dd><a href="http://pages.cs.wisc.edu/~remzi/OSTEP/">Operating Systems: Three Easy Pieces</a></dd>
+</dl>
+```
+:::
+
+::: {.next aria-labelledby="record-h"}
+```{=html}
+<span class="label" id="record-h">Course record</span>
+<p class="small" style="margin:0 0 12px">This offering began in August 2020. Its slides, lecture videos, class recordings, lab solutions and student zines remain available.</p>
+<dl>
+  <dt>Classes</dt><dd><span class="stat">30</span></dd>
+  <dt>Videos</dt><dd><a href="https://www.youtube.com/playlist?list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5">Lecture playlist</a></dd>
+  <dt>Labs</dt><dd><a href="labs.html">Four labs with solutions</a></dd>
+  <dt>Zines</dt><dd><a href="zine.html">33 student zines</a></dd>
+  <dt>Code</dt><dd><a href="https://github.com/nipunbatra/os2020/tree/master/lectures/code">Code used in classes</a></dd>
+</dl>
+<p class="all"><a href="https://docs.google.com/document/d/1AeyF5Q01pR3o38UsgmknJgdrv-ZB6W9fJQ8hZrFdtfk/edit?usp=sharing">Course policy and FAQ</a></p>
+```
+:::
+
+:::
+
+```{=html}
+<section class="rule-top" id="lectures"><h2>Lectures</h2>
+<ul class="modules c5">
+  <li><span class="r">1–5</span><a href="schedule.html#processes">Processes and CPU scheduling</a><span class="c">5 lectures</span></li>
+  <li><span class="r">6–7</span><a href="schedule.html#file-systems">File systems</a><span class="c">2 lectures</span></li>
+  <li><span class="r">8–14</span><a href="schedule.html#memory">Memory virtualisation</a><span class="c">7 lectures</span></li>
+  <li><span class="r">15–25</span><a href="schedule.html#concurrency">Concurrency</a><span class="c">11 lectures</span></li>
+  <li><span class="r">26–30</span><a href="schedule.html#persistence">I/O devices, disks and RAID</a><span class="c">5 lectures</span></li>
+</ul>
+<div class="playlists">
+  <a class="btn ib" href="https://www.youtube.com/playlist?list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5" target="_blank" rel="noopener noreferrer"><svg class="ic ic-recording" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>Lecture video playlist</a>
+  <a class="btn solid" href="schedule.html">All 30 classes</a>
+</div>
+</section>
+
+<div class="two rule-top">
+<section id="faq"><h2>Questions</h2>
+<details class="q" id="format"><summary>How is the class run?</summary><p>In a flipped format. Lecture videos are on <a href="https://www.youtube.com/playlist?list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5">YouTube</a>, and the class meetings on Zoom were recorded; both are linked from each class on the <a href="schedule.html">Lectures</a> page.</p></details>
+<details class="q" id="policy"><summary>Where are the course policies?</summary><p>In the <a href="https://docs.google.com/document/d/1AeyF5Q01pR3o38UsgmknJgdrv-ZB6W9fJQ8hZrFdtfk/edit?usp=sharing">course FAQ document</a>, which covers the course policy and other questions.</p></details>
+<details class="q" id="classroom"><summary>How do I join the Google Classroom?</summary><p>Use the class code <b>g27z27x</b>.</p></details>
+<details class="q" id="zines"><summary>What is an OS zine?</summary><p>A poster on an operating-systems tool or idea, usually with a short video, made by a pair of students. The <a href="zine.html">Zines</a> page collects all 33.</p></details>
+<details class="q" id="setup"><summary>What do I need for the labs?</summary><p>A Linux environment. An <a href="https://drive.google.com/file/d/1jZVQRuomuYsuK5dkTyuVMxV4oNLFX8Hs/view">Ubuntu VirtualBox image</a> is provided, and the <a href="https://github.com/nipunbatra/os2020/tree/master/lectures/code">code used in classes</a> is on GitHub.</p></details>
+</section>
+<section id="references"><h2>References</h2>
+<p class="small muted">Main textbook:</p>
+<ul class="refs">
+  <li>Remzi H. Arpaci-Dusseau and Andrea C. Arpaci-Dusseau, <i>Operating Systems: Three Easy Pieces</i> (<a href="http://pages.cs.wisc.edu/~remzi/OSTEP/">free online</a>)</li>
+</ul>
+<p class="small muted" style="margin-top:14px">Course resources:</p>
+<ul class="refs">
+  <li><a href="https://docs.google.com/document/d/1AeyF5Q01pR3o38UsgmknJgdrv-ZB6W9fJQ8hZrFdtfk/edit?usp=sharing">FAQ: course policy and other questions</a></li>
+  <li><a href="https://drive.google.com/file/d/1jZVQRuomuYsuK5dkTyuVMxV4oNLFX8Hs/view">Ubuntu VirtualBox VM image</a></li>
+  <li><a href="https://github.com/nipunbatra/os2020/tree/master/lectures/code">Code used in classes</a></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLftoLyLEwECB3NsNfQ1oxtt8IoBNRWcO5">Lecture video playlist</a></li>
+</ul>
+</section>
+</div>
+
+<section class="rule-top" id="people"><h2>Teaching assistants</h2>
+<ul class="people">
+  <li>Tom Glint</li>
+  <li>Rishiraj Adhikary</li>
+  <li>Vraj Patel</li>
+  <li>Rohan Patil</li>
+  <li>Prakash Rajan</li>
+</ul>
+</section>
+```

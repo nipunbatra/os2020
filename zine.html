@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Zines – CS 301 · Operating Systems 2020</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<link href="./favicon.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-73aec02b927eff4e312ab57925eacfa1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&amp;display=swap" rel="stylesheet">
+<script>
+// Light and dark: follow the system unless the switch has saved a choice. Runs before the page paints.
+(() => {
+  const root = document.documentElement, key = 'os2020-theme';
+  const mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : { matches: false };
+  const get = () => { try { return localStorage.getItem(key); } catch { return null; } };
+  const set = v => { try { v ? localStorage.setItem(key, v) : localStorage.removeItem(key); } catch {} };
+  function apply() {
+    const t = get();
+    if (t === 'light' || t === 'dark') root.setAttribute('data-theme', t); else root.removeAttribute('data-theme');
+    const dark = t === 'light' || t === 'dark' ? t === 'dark' : mq.matches;
+    root.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+    document.querySelectorAll('.mode').forEach(b => {
+      b.setAttribute('aria-checked', String(dark));
+      b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      b.title = b.getAttribute('aria-label');
+    });
+    return dark;
+  }
+  apply();
+  if (mq.addEventListener) mq.addEventListener('change', apply);
+  window.addEventListener('storage', e => { if (e.key === key) apply(); });
+  document.addEventListener('DOMContentLoaded', () => {
+    apply();
+    document.querySelectorAll('.mode').forEach(b => b.addEventListener('click', () => {
+      const dark = b.getAttribute('aria-checked') !== 'true';
+      // A choice that matches the system clears the override, so the site keeps following the system.
+      set(dark === mq.matches ? null : (dark ? 'dark' : 'light'));
+      apply();
+    }));
+  });
+})();
+</script>
+
+
+</head>
+
+<body class="dl wide fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+<aside class="rail">
+  <a class="code" href="./index.html" data-page="index.html">CS 301</a>
+  <span class="inst">IIT Gandhinagar</span>
+  <div class="appearance"><button type="button" class="mode" role="switch" aria-checked="false" aria-label="Switch to dark mode"><span class="sky"></span><span class="stars"><b style="left:9px;top:6px"></b><b style="left:15px;top:15px"></b><b style="left:5px;top:17px"></b></span><span class="knob"></span></button></div>
+  <nav aria-label="Course">
+    <a href="./index.html" data-page="index.html">Home</a>
+    <a href="./schedule.html" data-page="schedule.html">Lectures</a>
+    <a href="./labs.html" data-page="labs.html">Labs</a>
+    <a href="./zine.html" data-page="zine.html">Zines</a>
+    <a href="./assessment.html" data-page="assessment.html">Assessment</a>
+    <a href="./feedback.html" data-page="feedback.html">Feedback</a>
+  </nav>
+</aside>
+<script>document.body.prepend(document.currentScript.previousElementSibling);</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Zines</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+ul.zines{list-style:none;padding:0;margin:24px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:28px 24px}
+ul.zines li{margin:0}
+ul.zines .zthumb{display:block;border:1px solid var(--rule);background:var(--wash);aspect-ratio:612/865;overflow:hidden}
+ul.zines img{width:100%;height:100%;object-fit:cover;display:block}
+ul.zines h3{font-size:1rem;margin:10px 0 2px}
+ul.zines p{margin:0 0 2px}
+</style>
+<p class="lede">Zines and CS stories made by students, each on an operating-systems tool or idea, with a poster and, for most, a short video.</p>
+<ul class="zines">
+<li><a class="zthumb" href="Zines/booting.pdf"><img src="Zines/booting.png" alt="Booting zine" loading="lazy"></a><h3>Booting</h3><p class="small muted">Arpit Patel and Lovepreet Singh</p><p class="small"><a href="Zines/booting.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1ecfxb93eQiO1A13lTeZ8tm6VHBX3zaaJ/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/CFS.pdf"><img src="Zines/CFS.png" alt="Completely Fair Scheduler zine" loading="lazy"></a><h3>Completely Fair Scheduler</h3><p class="small muted">Preet Patel and Ribhu Vajpeyi</p><p class="small"><a href="Zines/CFS.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1bNf4Bloj71m9fKkZoN5Ot1flXyvGUKgB/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/Checksum.pdf"><img src="Zines/Checksum.png" alt="Checksum zine" loading="lazy"></a><h3>Checksum</h3><p class="small muted">Anupam Kumar and Chiluveru Preeti</p><p class="small"><a href="Zines/Checksum.pdf">Poster</a> · <a href="https://drive.google.com/file/d/181N0FAGVofW3dBhQ6tQsuUcim0YpdtlW/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/chmod.pdf"><img src="Zines/chmod.png" alt="chmod zine" loading="lazy"></a><h3>chmod</h3><p class="small muted">Pranshu Kumar Gond and Sagar Bisen</p><p class="small"><a href="Zines/chmod.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1hPdjCsrAHTRImBf1kV4ACBW6W7_d-LQW/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/CODEC.pdf"><img src="Zines/CODEC.png" alt="CODEC zine" loading="lazy"></a><h3>CODEC</h3><p class="small muted">Utsav Jethva and Shweta Pardeshi</p><p class="small"><a href="Zines/CODEC.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1hONumvnnPV0CgGxVfA_hHYALUTYW3z5M/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/CRON.pdf"><img src="Zines/CRON.png" alt="CRON zine" loading="lazy"></a><h3>CRON</h3><p class="small muted">Chandrahas Rama and Krishna Reddy</p><p class="small"><a href="Zines/CRON.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1Z2CStAdJYa24N7Y5RMUe96QC-qzS9PuQ/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/cross_compilation.pdf"><img src="Zines/cross_compilation.png" alt="Cross Compilation zine" loading="lazy"></a><h3>Cross Compilation</h3><p class="small muted">Urvishkumar Patel and Tanmaey Gupta</p><p class="small"><a href="Zines/cross_compilation.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1bp6xTXdZ2ij53xyr7stgi6vtDwi9SKBE/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/Curl.pdf"><img src="Zines/Curl.png" alt="Curl zine" loading="lazy"></a><h3>Curl</h3><p class="small muted">Akshay Biju and Avinash Karanam</p><p class="small"><a href="Zines/Curl.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1dUGubQh7Yicwlvc0egKprEb6mLeCjPFg/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/DD.pdf"><img src="Zines/DD.png" alt="Data Duplicator zine" loading="lazy"></a><h3>Data Duplicator</h3><p class="small muted">Dhanya Sree and Manisha</p><p class="small"><a href="Zines/DD.pdf">Poster</a> · <a href="https://drive.google.com/file/d/12Z3TS4XU4XJzAHtQN0UkEPN2pp0EMgJi/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/Docker.pdf"><img src="Zines/Docker.png" alt="Docker zine" loading="lazy"></a><h3>Docker</h3><p class="small muted">Shivam Sahni and Dishank Goel</p><p class="small"><a href="Zines/Docker.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1dEj3UBFZgRYY0sjoV1cTKbJeVYtuivsS/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/Dotfiles.pdf"><img src="Zines/Dotfiles.png" alt="Dotfiles zine" loading="lazy"></a><h3>Dotfiles</h3><p class="small muted">G Harshavardhan and Pittala Nikhil</p><p class="small"><a href="Zines/Dotfiles.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1f59tv18sSqNwara8oo2YVoT_3II4Ww5l/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/ENV_VAR.pdf"><img src="Zines/ENV_VAR.png" alt="Environment Variable zine" loading="lazy"></a><h3>Environment Variable</h3><p class="small muted">Prasad Athave and Siddharth Soni</p><p class="small"><a href="Zines/ENV_VAR.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1iKiV5BTdzG7UKPnsVfD-c3utEig3KHgc/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/gdb.pdf"><img src="Zines/gdb.png" alt="gdb zine" loading="lazy"></a><h3>gdb</h3><p class="small muted">Dhruvi Lodhavia and Udit Vyas</p><p class="small"><a href="Zines/gdb.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1APC_H_ogNgClvDlawFrSObP4dcSm_5Kf/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/GREP.pdf"><img src="Zines/GREP.png" alt="GREP zine" loading="lazy"></a><h3>GREP</h3><p class="small muted">Priyam Tongia and Mihir Jain</p><p class="small"><a href="Zines/GREP.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1jgOq0CNteDyv9UwqmatrgtFyMzLfnKoY/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/GZIP.pdf"><img src="Zines/GZIP.png" alt="GZIP zine" loading="lazy"></a><h3>GZIP</h3><p class="small muted">Kalyan and Shahid</p><p class="small"><a href="Zines/GZIP.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1uJ78nyH_btQ4q5DU9bFLjOADJPrFLj-9/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/MAKE_FILE.pdf"><img src="Zines/MAKE_FILE.png" alt="Make File zine" loading="lazy"></a><h3>Make File</h3><p class="small muted">Kushagra Sharma and Aditya Tripathi</p><p class="small"><a href="Zines/MAKE_FILE.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1lHeeE7Ib0-2riTf3Y1m_zwtMkUDSQBwu/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/man.pdf"><img src="Zines/man.png" alt="Man zine" loading="lazy"></a><h3>Man</h3><p class="small muted">Vedant Bhutani and Ojas Mithbavkar</p><p class="small"><a href="Zines/man.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1oY0gE0SyTdnBQ33XUhRqXk9Qow3K3h_9/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/Mount.pdf"><img src="Zines/Mount.png" alt="Mount zine" loading="lazy"></a><h3>Mount</h3><p class="small muted">Abhavya Chandra and Shubham Deshpande</p><p class="small"><a href="Zines/Mount.pdf">Poster</a> · <a href="https://drive.google.com/file/d/17qzY44lbL0CmD69Po7HnM1bFXUkvRAx-/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/Nohup.pdf"><img src="Zines/Nohup.png" alt="Nohup zine" loading="lazy"></a><h3>Nohup</h3><p class="small muted">Aditya Pusalkar and Pushkar Mujumdar</p><p class="small"><a href="Zines/Nohup.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1BsOSQwzfo4Y-oqocBOPz1v5UT89wpSkH/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/nslookup.pdf"><img src="Zines/nslookup.png" alt="nslookup zine" loading="lazy"></a><h3>nslookup</h3><p class="small muted">Ajinkya Pawar and Jitender Kumar</p><p class="small"><a href="Zines/nslookup.pdf">Poster</a> · <a href="https://drive.google.com/file/d/19JlHAFJGVz515C6WyGOufZ0tQB_Kf1JU/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/OS_Python.pdf"><img src="Zines/OS_Python.png" alt="OS Python zine" loading="lazy"></a><h3>OS Python</h3><p class="small muted">Amey Kulkarni and Chris Francis</p><p class="small"><a href="Zines/OS_Python.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1gHbMbr064SxUK1aOY0k0MSjXrRrYLmRS/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/peggit.pdf"><img src="Zines/peggit.png" alt="Peggit zine" loading="lazy"></a><h3>Peggit</h3><p class="small muted">Janvi Thakkar and Aishna Agrawal</p><p class="small"><a href="Zines/peggit.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1jv3JHauQ-NFFxL1-z77bsg4bd9Ef_e14/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/ping.pdf"><img src="Zines/ping.png" alt="Ping zine" loading="lazy"></a><h3>Ping</h3><p class="small muted">Raghav Goyal and Devvrat Joshi</p><p class="small"><a href="Zines/ping.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1KTo_GnLo5Lk33j1vJRp99niGuG1dJsQv/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/pipe.pdf"><img src="Zines/pipe.png" alt="Pipes zine" loading="lazy"></a><h3>Pipes</h3><p class="small muted">Harsh Shah and Madhav Tiwari</p><p class="small"><a href="Zines/pipe.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1R9FD1fUz4DqsjRrJ6L4N-jfbGDcrMF5p/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/SED.pdf"><img src="Zines/SED.png" alt="SED zine" loading="lazy"></a><h3>SED</h3><p class="small muted">Ronak Kaoshik and Deepika Soni</p><p class="small"><a href="Zines/SED.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1wLoi0Fw0P2eN9pCjeGKjLOcQtNmfrGmI/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/SFTP.pdf"><img src="Zines/SFTP.png" alt="SFTP zine" loading="lazy"></a><h3>SFTP</h3><p class="small muted">Viraj Shah and Vrutik Shah</p><p class="small"><a href="Zines/SFTP.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1_vuoQw64f8qxhGwfkJhPRIL6FM9PFvX_/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/SORT_UNIQ.pdf"><img src="Zines/SORT_UNIQ.png" alt="Sort and Uniq zine" loading="lazy"></a><h3>Sort and Uniq</h3><p class="small muted">Nishikant Parmar and Sachin Yadav</p><p class="small"><a href="Zines/SORT_UNIQ.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1u_4qVfko5kEyhPOBp8iNWaVbtncoPhTO/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/SSDS.pdf"><img src="Zines/SSDS.png" alt="SSDS zine" loading="lazy"></a><h3>SSDS</h3><p class="small muted">Varun Jain and Arpita Kabra</p><p class="small"><a href="Zines/SSDS.pdf">Poster</a></p></li>
+<li><a class="zthumb" href="Zines/SSH.pdf"><img src="Zines/SSH.png" alt="SSH zine" loading="lazy"></a><h3>SSH</h3><p class="small muted">Harsh Patel and Palak Purohit</p><p class="small"><a href="Zines/SSH.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1V1ou72qCVmTSSOmDJTJEPcyyLSF7F_2g/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/tar.pdf"><img src="Zines/tar.png" alt="Tar zine" loading="lazy"></a><h3>Tar</h3><p class="small muted">Vivek Modi and Shruti Katpara</p><p class="small"><a href="Zines/tar.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1x-Mgglk0W2Xz3-NSwpEt74iZMGM045qh/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/Traceroute.pdf"><img src="Zines/Traceroute.png" alt="Traceroute zine" loading="lazy"></a><h3>Traceroute</h3><p class="small muted">Rwik Rana and Harshit Kumar</p><p class="small"><a href="Zines/Traceroute.pdf">Poster</a> · <a href="https://drive.google.com/file/d/11mPNAKAXZHaBM_UoznSEZcW6TVH_osOl/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/Valgrind.pdf"><img src="Zines/Valgrind.png" alt="Valgrind zine" loading="lazy"></a><h3>Valgrind</h3><p class="small muted">Abhinav Singh and Bikramjot Singh Dhindsa</p><p class="small"><a href="Zines/Valgrind.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1HpXGbFqlU-w7o6WIjGNB1MT0W6jC1WY5/view?usp=sharing">Video</a></p></li>
+<li><a class="zthumb" href="Zines/VIM.pdf"><img src="Zines/VIM.png" alt="VIM zine" loading="lazy"></a><h3>VIM</h3><p class="small muted">Shril Mody and Hetvi Shastri</p><p class="small"><a href="Zines/VIM.pdf">Poster</a> · <a href="https://drive.google.com/file/d/1sot_LDAZBRTTdtZHbKBNJxWmJQ8B0RlQ/view?usp=sharing">Video</a></p></li>
+</ul>
+
+
+
+</main> <!-- /main -->
+<footer class="foot">
+  <span>Prof. Nipun Batra · IIT Gandhinagar · Semester I, 2020–21</span>
+  <span><a href="https://nipunbatra.github.io/teaching.html">All courses</a> · <a href="https://nipunbatra.github.io">nipunbatra.github.io</a></span>
+</footer>
+<script>document.body.append(document.currentScript.previousElementSibling);</script>
+<script>
+(() => {
+  // Mark the current page in the rail. Quarto writes the rail links relative to this page.
+  const home = document.querySelector('.rail a.code');
+  const root = home ? new URL(home.getAttribute('href'), location.href).pathname.replace(/[^/]*$/, '') : '/';
+  let rel = location.pathname.startsWith(root) ? location.pathname.slice(root.length) : '';
+  if (rel === '' || rel.endsWith('/')) rel += 'index.html';
+  else if (!/\.[a-z]+$/i.test(rel)) rel += '.html';
+  // A data-page ending in "/" marks a whole folder (for example Assignments/).
+  document.querySelectorAll('.rail nav a[data-page]').forEach(a => {
+    const p = a.dataset.page;
+    if (p.endsWith('/') ? rel.startsWith(p) : rel === p) a.setAttribute('aria-current', 'page');
+  });
+
+  // Copy-link buttons on section headings, lectures and assignment questions.
+  const LINK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2"/></svg>';
+  document.querySelectorAll('main.content :is(h2, h3, h4)').forEach(h => {
+    if (h.closest('.next, .quarto-title-block, .callout, details') || h.querySelector('.anchor')) return;
+    const row = h.closest('tr[id]');
+    const sec = h.parentElement.tagName === 'SECTION' ? h.parentElement : h.closest('.mod');
+    const target = row || (sec && sec.id ? sec : null) || (h.id ? h : null);
+    if (!target) return;
+    const id = target.id;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'anchor';
+    b.title = 'Copy link';
+    b.setAttribute('aria-label', 'Copy link to ' + (row ? 'lecture ' + id.replace('lecture-', '') : h.textContent.trim()));
+    b.innerHTML = LINK + '<span class="done">Copied</span>';
+    b.addEventListener('click', () => {
+      const url = location.origin + location.pathname + '#' + id;
+      history.replaceState(null, '', '#' + id);
+      const done = () => { b.classList.add('copied'); setTimeout(() => b.classList.remove('copied'), 1600); };
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, () => {});
+    });
+    h.append(b);
+  });
+
+  // Contain wide tables in assignments and policies.
+  document.querySelectorAll('main.content table:not(.lt):not(.t)').forEach(table => {
+    if (table.parentElement.classList.contains('course-table-scroll')) return;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'course-table-scroll';
+    wrapper.setAttribute('role', 'region');
+    wrapper.setAttribute('aria-label', 'Scrollable table');
+    wrapper.tabIndex = 0;
+    table.before(wrapper);
+    wrapper.append(table);
+    if (table.rows[0]?.cells.length <= 2) table.classList.add('course-table-compact');
+  });
+
+  // Dates: read the table in _dates.qmd ("08 Oct 26" or "08 Oct 26, 6:30 pm", IST), grey out the past,
+  // draw a Today line on Assessment and list what is coming up on Home.
+  const MONTHS = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
+  const IST = 330 * 60000, DAY = 864e5;
+  const istDay = t => Math.floor((t + IST) / DAY);
+  const now = Date.now(), today = istDay(now);
+  const START = Date.UTC(2020, 7, 3) / DAY; // Monday of the first teaching week
+  function parse(text) {
+    const m = text.match(/(\d{1,2}) ([A-Z][a-z]{2}) (\d{2})(?:,\s*(\d{1,2}):(\d{2})\s*(am|pm))?/i);
+    if (!m) return null;
+    const [, d, mon, y, hh, mm, ap] = m;
+    const day = Date.UTC(2000 + +y, MONTHS[mon], +d) / DAY;
+    let end;
+    if (hh) end = Date.UTC(2000 + +y, MONTHS[mon], +d, (+hh % 12) + (ap.toLowerCase() === 'pm' ? 12 : 0), +mm) - IST;
+    else end = (day + 1) * DAY - IST - 1;
+    return { day, end, time: hh ? `${hh}:${mm} ${ap}` : '' };
+  }
+  const fmt = (day, opts) => new Date(day * DAY).toLocaleDateString('en-GB', Object.assign({ timeZone: 'UTC' }, opts));
+  document.querySelectorAll('.dates table').forEach(table => {
+    table.classList.add('t');
+    const rows = [...table.tBodies[0].rows].map(tr => ({ tr, when: parse(tr.cells[0].textContent) })).filter(r => r.when);
+    const box = table.closest('.next');
+    if (box) {
+      // Home: the next four dates, grouped by day.
+      const groups = [];
+      rows.filter(r => r.when.end >= now).forEach(r => {
+        const g = groups.find(x => x.day === r.when.day);
+        if (g) g.rows.push(r); else groups.push({ day: r.when.day, time: r.when.time, rows: [r] });
+      });
+      const ol = document.createElement('ol');
+      groups.slice(0, 4).forEach(g => {
+        const left = g.day - today;
+        const li = document.createElement('li');
+        if (left <= 3) li.className = 'hot';
+        const rel = left === 0 ? 'today' : left === 1 ? 'tomorrow' : `in ${left} days`;
+        li.innerHTML = `<span class="d">${fmt(g.day, { day: '2-digit', month: 'short' })}<small>${fmt(g.day, { weekday: 'short' })}${g.time ? ' ' + g.time : ''}<br>${rel}</small></span><span></span>`;
+        g.rows.forEach((r, i) => {
+          if (i) li.lastChild.append(document.createElement('br'));
+          const cell = r.tr.cells[1].cloneNode(true);
+          li.lastChild.append(...cell.childNodes);
+        });
+        ol.append(li);
+      });
+      if (!groups.length) ol.innerHTML = '<li><span></span><span>No more dates this semester.</span></li>';
+      table.closest('.dates').replaceWith(ol);
+      return;
+    }
+    // Assessment: grey out the past, mark this week, and draw the Today line.
+    let placed = false;
+    rows.forEach(({ tr, when }) => {
+      const past = when.end < now;
+      tr.classList.toggle('past', past);
+      const tag = document.createElement('td');
+      tag.className = 'tag';
+      if (!past && when.day - today <= 7) tag.innerHTML = '<span class="pill now">This week</span>';
+      tr.append(tag);
+      if (!past && !placed) {
+        placed = true;
+        const t = document.createElement('tr');
+        t.className = 'today';
+        const week = Math.floor((today - START) / 7) + 1;
+        t.innerHTML = `<td>Today, ${fmt(today, { day: '2-digit', month: 'short' })}</td><td colspan="2">${week >= 1 && week <= 17 ? 'Week ' + week : ''}</td>`;
+        tr.before(t);
+      }
+    });
+    const head = table.tHead?.rows[0];
+    if (head) head.append(document.createElement('th'));
+  });
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,29 @@
+---
+title: "Assessment"
+body-classes: dl wide
+---
+
+```{=html}
+<p class="lede">The grading scheme and course policies for this offering are in the <a href="https://docs.google.com/document/d/1AeyF5Q01pR3o38UsgmknJgdrv-ZB6W9fJQ8hZrFdtfk/edit?usp=sharing">course FAQ document</a>. This page collects the dates and assessed work that the course website recorded.</p>
+```
+
+::: {.two .rule-top}
+
+## Dates {#deadlines}
+
+{{< include _dates.qmd >}}
+
+## Assessed work {#work}
+
+```{=html}
+<table class="t" data-quarto-disable-processing="true">
+<thead><tr><th>Component</th><th>Details</th></tr></thead>
+<tbody>
+<tr><th>Labs</th><td>Weekly labs on Thursdays, 3:00–5:00 pm. <a href="labs.html">Questions and solutions</a> for labs 1–4.</td></tr>
+<tr><th>OS zine</th><td>A poster and short video on an operating-systems tool or idea, made in pairs. <a href="zine.html">All 33 zines</a>.</td></tr>
+<tr><th>Project</th><td>Project topics were discussed in class on 13&nbsp;August; the list of project ideas was marked “to be announced” on the course website.</td></tr>
+<tr><th>Policy</th><td>Grading and other course policies: <a href="https://docs.google.com/document/d/1AeyF5Q01pR3o38UsgmknJgdrv-ZB6W9fJQ8hZrFdtfk/edit?usp=sharing">FAQ document</a>.</td></tr>
+</tbody></table>
+```
+
+:::

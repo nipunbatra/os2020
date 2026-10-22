@@ -1,0 +1,10 @@
+---
+title: "Zines"
+include-in-header:
+  text: |
+    <meta http-equiv="refresh" content="0; url=../zine.html">
+    <link rel="canonical" href="https://nipunbatra.github.io/os2020/zine.html">
+    <meta name="robots" content="noindex">
+---
+
+This page has moved: [go to Zines](/zine.html).
